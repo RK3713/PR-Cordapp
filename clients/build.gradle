@@ -1,0 +1,68 @@
+group 'com.pr.client'
+version '1.0'
+
+
+apply plugin: 'org.springframework.boot'
+apply plugin: 'java'
+apply plugin: 'net.corda.plugins.cordapp'
+
+sourceSets {
+    main {
+        resources {
+            srcDir rootProject.file("config/dev")
+        }
+    }
+}
+
+dependencies {
+    // Corda dependencies.
+    compile "$corda_release_group:corda-rpc:$corda_release_version"
+
+
+
+    compile("org.springframework.boot:spring-boot-starter-websocket:$spring_boot_version") {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+    
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
+    compile "org.apache.logging.log4j:log4j-web:${log4j_version}"
+    compile "org.slf4j:jul-to-slf4j:$slf4j_version"
+
+//    compile project(":pr-common")
+//    compile project(":pr-contract-state-schema")
+//    compile project(":pr-wes")
+//    compile project(":pr-wes-server")
+//    compile project(":university")
+//    compile project(":university-server")
+//    compile project(":consultants")
+//    compile project(":consultants-server")
+}
+
+springBoot {
+    mainClassName = "com.template.webserver.Server"
+}
+
+
+task runTemplateClient(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.pr.Client'
+    args 'localhost:10006', 'user1', 'test'
+}
+
+//task runAServer(type: JavaExec, dependsOn: assemble) {
+//    classpath = sourceSets.main.runtimeClasspath
+//    main = 'com.pr.client.Starter'
+//    args '--server.port=10060', '--config.rpc.host=localhost', '--config.rpc.port=10006', '--config.rpc.username=user1', '--config.rpc.password=test'
+//}
+//
+//task runBServer(type: JavaExec, dependsOn: assemble) {
+//    classpath = sourceSets.main.runtimeClasspath
+//    main = 'com.pr.client.Starter'
+//    args '--server.port=10061', '--config.rpc.host=localhost', '--config.rpc.port=10009', '--config.rpc.username=user1', '--config.rpc.password=test'
+//}
+//
+//task runCServer(type: JavaExec, dependsOn: assemble) {
+//    classpath = sourceSets.main.runtimeClasspath
+//    main = 'com.pr.client.Starter'
+//    args '--server.port=10062', '--config.rpc.host=localhost', '--config.rpc.port=10012', '--config.rpc.username=user1', '--config.rpc.password=test'
+//}
