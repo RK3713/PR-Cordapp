@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 
 import com.pr.contract.state.schema.states.PRState;
+import com.pr.contract.state.schema.states.PRStatus;
 import com.pr.server.common.bo.impl.PRBO;
 import com.pr.server.common.config.RPConnector;
 import net.corda.core.identity.AbstractParty;
@@ -79,24 +80,21 @@ public abstract class CommonController{
 
 
 
-    protected PRState convertToPRState (PRBO prData, AbstractParty consultantParty,
+    protected PRState convertToPRState (PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
                                         AbstractParty wesParty, AbstractParty universityParty){
 
-        return new PRState( prData.getFirstName(), prData.getLastName(), prData.getAddress(),
-                prData.getGender(),prData.getDob(),prData.getLanguage(), prData.getEyeColour(),
-                prData.getMartialStatus(),prData.getEmail(),prData.getIncome(),
-                prData.getUciNnumber(),prData.getCertificateNumber(),prData.getWesAck(),
-                consultantParty,wesParty,universityParty);
+        return new PRState( prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
+                prData.getCourseDuration(), prData.getUniversity(), prData.getEmail(),
+                prStatus, consultantParty,wesParty,universityParty);
 
     }
 
-    protected PRState convertToPRStateforUpdate(PRState previousPRState, PRBO prbo) {
+    protected PRState convertToPRStateForUpdate(PRState previousPRState, PRStatus prStatus, PRBO prbo) {
 
-        return new PRState( previousPRState.getId(),previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getAddress(),
-                previousPRState.getGender(),previousPRState.getDob(),previousPRState.getLanguage(), previousPRState.getEyeColour(),
-                previousPRState.getMartialStatus(),previousPRState.getEmail(),previousPRState.getIncome(),
-                previousPRState.getUciNnumber(),previousPRState.getCertificateNumber(),prbo.getWesAck(),
-                previousPRState.getConsultantParty(),previousPRState.getWesParty(),previousPRState.getUniversityParty());
+        return new PRState( previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getCourseName(),
+                previousPRState.getCourseDuration(),previousPRState.getUniversity(),previousPRState.getWesReferenceNumber(),
+                previousPRState.getEmail(),prStatus,previousPRState.getConsultantParty(),
+                previousPRState.getWesParty(),previousPRState.getUniversityParty());
     }
 
 

@@ -56,9 +56,15 @@ lib/dokka.jar
 
 # IntelliJ
 /out/
-/workflows/out/
-/contracts/out/
-clients/out/
+/pr-common/out/
+/pr-common-server/out/
+/pr-consultant/out/
+/pr-consultant-server/out/
+/pr-contract-state-schema/out/
+/pr-university/out/
+/pr-university-server/out/
+/pr-wes/out/
+/pr-wes-server/out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

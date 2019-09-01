@@ -1,4 +1,4 @@
-rootProject.name = 'pr-process'
+rootProject.name = 'PR-Cordapp'
 include 'pr-common'
 include 'pr-common-server'
 include 'pr-consultant'

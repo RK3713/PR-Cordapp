@@ -2,6 +2,7 @@ package com.pr.contract.state.schema.schema;
 
 import com.google.common.collect.ImmutableList;
 import com.pr.contract.state.schema.states.PRState;
+import com.pr.contract.state.schema.states.PRStatus;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.schemas.MappedSchema;
@@ -26,8 +27,7 @@ public class PRSchemaV1 extends MappedSchema {
     @Table(name = "PR")
     public static class PersistentPR extends PersistentState{
 
-        @Column(name = "Id")
-        private String id;
+
 
         @Column(name = "FirstName")
         private String firstName;
@@ -35,38 +35,23 @@ public class PRSchemaV1 extends MappedSchema {
         @Column(name = "LastName")
         private String lastName;
 
-        @Column(name = "Address")
-        private String address;
+        @Column(name = "CourseName")
+        private String courseName;
 
-        @Column(name = "Gender")
-        private String gender;
+        @Column(name = "CourseDuration")
+        private String courseDuration;
 
-        @Column(name = "DOB")
-        private LocalDateTime dob;
+        @Column(name = "University")
+        private String university;
 
-        @Column(name = "Language")
-        private String language;
-
-        @Column(name = "EyeColour")
-        private String eyeColour;
-
-        @Column(name = "MartialStatus")
-        private String martialStatus;
+        @Column(name = "WesReferenceNumber")
+        private String  wesReferenceNumber;
 
         @Column(name = "Email")
         private String email;
 
-        @Column(name = "Income")
-        private Double income;
-
-        @Column(name = "UCINumber")
-        private String uciNumber;
-
-        @Column(name = "CertificateNumber")
-        private String certificateNumber;
-
-        @Column(name = "WesAck")
-        private Boolean wesAck;
+        @Column(name = "PRStatus")
+        private PRStatus prStatus;
 
         @Column(name = "ConsultantParty")
         private AbstractParty consultantParty;
@@ -77,51 +62,44 @@ public class PRSchemaV1 extends MappedSchema {
         @Column(name = "UniversityParty")
         private AbstractParty universityParty;
 
+
+
         @ConstructorForDeserialization
-        public PersistentPR(UniqueIdentifier id, String firstName, String lastName, String address, String gender, LocalDateTime dob, String language, String eyeColour, String martialStatus, String email, Double income, String uciNumber, String certificateNumber, Boolean wesAck, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
+        public PersistentPR(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
             super();
-            this.id = id.toString();
             this.firstName = firstName;
             this.lastName = lastName;
-            this.address = address;
-            this.gender = gender;
-            this.dob = dob;
-            this.language = language;
-            this.eyeColour = eyeColour;
-            this.martialStatus = martialStatus;
+            this.courseName = courseName;
+            this.courseDuration = courseDuration;
+            this.university = university;
+            this.wesReferenceNumber = wesReferenceNumber.toString();
             this.email = email;
-            this.income = income;
-            this.uciNumber = uciNumber;
-            this.certificateNumber = certificateNumber;
-            this.wesAck = wesAck;
+            this.prStatus = prStatus;
             this.consultantParty = consultantParty;
             this.wesParty = wesParty;
             this.universityParty = universityParty;
         }
 
 
+
         public PersistentPR(PRState prState) {
             super();
-            this.id = prState.getId().toString();
             this.firstName = prState.getFirstName();
             this.lastName = prState.getLastName();
-            this.address = prState.getAddress();
-            this.gender = prState.getGender();
-            this.dob = prState.getDob();
-            this.language = prState.getLanguage();
-            this.eyeColour = prState.getEyeColour();
-            this.martialStatus = prState.getMartialStatus();
+            this.courseName = prState.getCourseName();
+            this.courseDuration = prState.getCourseDuration();
+            this.university = prState.getUniversity();
+            this.wesReferenceNumber = prState.getWesReferenceNumber().toString();
             this.email = prState.getEmail();
-            this.income = prState.getIncome();
-            this.uciNumber = prState.getUciNnumber();
-            this.certificateNumber = prState.getCertificateNumber();
-            this.wesAck = prState.getWesAck();
+            this.prStatus = prState.getPrStatus();
             this.consultantParty = prState.getConsultantParty();
             this.wesParty = prState.getWesParty();
             this.universityParty = prState.getUniversityParty();
         }
 
+        public PersistentPR(){
 
+        }
 
     }
 

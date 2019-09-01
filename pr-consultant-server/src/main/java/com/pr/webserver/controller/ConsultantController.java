@@ -5,6 +5,7 @@ import com.pr.common.data.PRFlowData;
 import com.pr.consultant.ConsultantInitiator;
 import com.pr.contract.state.schema.contracts.PRContract;
 import com.pr.contract.state.schema.states.PRState;
+import com.pr.contract.state.schema.states.PRStatus;
 import com.pr.server.common.bo.impl.PRBO;
 import com.pr.server.common.controller.CommonController;
 import net.corda.core.contracts.StateAndRef;
@@ -47,11 +48,6 @@ public class ConsultantController extends CommonController {
         return "hello world";
     }
 
-    @CrossOrigin
-    @GetMapping("/demo")
-    private String demo() {
-        return "hello demo";
-    }
 
     @CrossOrigin
     @PostMapping("/")
@@ -85,7 +81,7 @@ public class ConsultantController extends CommonController {
         logger.info(" ********************************************** ");
 
         // Creating state
-        prState = convertToPRState(prData,consultantParty,wesParty,universityParty);
+        prState = convertToPRState(prData,PRStatus.ACCOUNT_CREATED,consultantParty,wesParty,universityParty);
 
         try {
             FlowHandle<SignedTransaction> flowHandle = connector.getRPCops().startFlowDynamic
