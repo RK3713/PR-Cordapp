@@ -2,9 +2,12 @@ package com.pr.server.common.bo.impl;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.pr.contract.state.schema.states.PRStatus;
 import com.pr.server.common.bo.BusinessObject;
 import com.pr.server.common.deserializer.PRBODeserializer;
 import kotlinx.html.B;
+import net.corda.core.contracts.UniqueIdentifier;
+import net.corda.core.identity.AbstractParty;
 import net.corda.core.serialization.ConstructorForDeserialization;
 import net.corda.core.serialization.CordaSerializable;
 
@@ -18,22 +21,28 @@ public class PRBO implements BusinessObject {
 
     private String firstName;
     private String lastName;
-    private String address;
-    private String gender;
-    LocalDateTime dob;
-    private String language;
-    private String eyeColour;
-    private String martialStatus;
+    private String courseName;
+    private String courseDuration;
+    private String university;
     private String email;
-    private Double income;
-    private String uciNnumber;
-    private String certificateNumber;
-    private Boolean wesAck;
-
+    private String prStatus;
     private String consultantParty;
     private String wesParty;
     private String universityParty;
 
+    @ConstructorForDeserialization
+    public PRBO(String firstName, String lastName, String courseName, String courseDuration, String university, String email, String prStatus, String consultantParty, String wesParty, String universityParty) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.courseName = courseName;
+        this.courseDuration = courseDuration;
+        this.university = university;
+        this.email = email;
+        this.prStatus = prStatus;
+        this.consultantParty = consultantParty;
+        this.wesParty = wesParty;
+        this.universityParty = universityParty;
+    }
 
 
     public String getFirstName() {
@@ -52,52 +61,28 @@ public class PRBO implements BusinessObject {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getCourseDuration() {
+        return courseDuration;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setCourseDuration(String courseDuration) {
+        this.courseDuration = courseDuration;
     }
 
-    public LocalDateTime getDob() {
-        return dob;
+    public String getUniversity() {
+        return university;
     }
 
-    public void setDob(LocalDateTime dob) {
-        this.dob = dob;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getEyeColour() {
-        return eyeColour;
-    }
-
-    public void setEyeColour(String eyeColour) {
-        this.eyeColour = eyeColour;
-    }
-
-    public String getMartialStatus() {
-        return martialStatus;
-    }
-
-    public void setMartialStatus(String martialStatus) {
-        this.martialStatus = martialStatus;
+    public void setUniversity(String university) {
+        this.university = university;
     }
 
     public String getEmail() {
@@ -108,35 +93,13 @@ public class PRBO implements BusinessObject {
         this.email = email;
     }
 
-    public Double getIncome() {
-        return income;
+    public String getPrStatus() {
+        return prStatus;
     }
 
-    public void setIncome(Double income) {
-        this.income = income;
+    public void setPrStatus(String prStatus) {
+        this.prStatus = prStatus;
     }
-
-    public String getUciNnumber() {
-        return uciNnumber;
-    }
-
-    public void setUciNnumber(String uciNnumber) {
-        this.uciNnumber = uciNnumber;
-    }
-
-    public String getCertificateNumber() {
-        return certificateNumber;
-    }
-
-    public void setCertificateNumber(String certificateNumber) {
-        this.certificateNumber = certificateNumber;
-    }
-
-    public Boolean getWesAck() { return wesAck; }
-
-    public void setWesAck(Boolean wesAck) { this.wesAck = wesAck; }
-
-
 
     public String getConsultantParty() {
         return consultantParty;
@@ -163,24 +126,6 @@ public class PRBO implements BusinessObject {
     }
 
 
-    @ConstructorForDeserialization
-    public PRBO(String firstName, String lastName, String address, String gender, LocalDateTime dob, String language, String eyeColour, String martialStatus, String email, Double income, String uciNnumber, String certificateNumber, Boolean wesAck, String consultantParty, String wesParty, String universityParty) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.gender = gender;
-        this.dob = dob;
-        this.language = language;
-        this.eyeColour = eyeColour;
-        this.martialStatus = martialStatus;
-        this.email = email;
-        this.income = income;
-        this.uciNnumber = uciNnumber;
-        this.certificateNumber = certificateNumber;
-        this.wesAck = wesAck;
-        this.consultantParty = consultantParty;
-        this.wesParty = wesParty;
-        this.universityParty = universityParty;
-    }
+
 
 }

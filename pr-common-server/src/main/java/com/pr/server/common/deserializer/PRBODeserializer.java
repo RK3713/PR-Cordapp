@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.pr.server.common.bo.impl.PRBO;
 import java.io.IOException;
-import java.time.ZonedDateTime;
 
 public class PRBODeserializer extends JsonDeserializer<PRBO> {
 
@@ -18,23 +17,17 @@ public class PRBODeserializer extends JsonDeserializer<PRBO> {
         ObjectCodec oc = jp.getCodec();
         JsonNode node = oc.readTree(jp);
 
+
         return new PRBO(node.get("firstName")!=null ? node.get("firstName").asText(): null,
                 node.get("lastName")!=null ? node.get("lastName").asText(): null,
-                node.get("address")!=null ? node.get("address").asText(): null,
-                node.get("gender")!=null ? node.get("gender").asText(): null,
-                node.get("dob")!=null ? (ZonedDateTime.parse(node.get("dob").asText())).toLocalDateTime(): null,
-                node.get("language")!=null ? node.get("language").asText(): null,
-                node.get("eyeColour")!=null ? node.get("eyeColour").asText(): null,
-                node.get("martialStatus")!=null ? node.get("martialStatus").asText(): null,
+                node.get("courseName")!=null ? node.get("courseName").asText(): null,
+                node.get("courseDuration")!=null ? node.get("courseDuration").asText(): null,
+                node.get("university")!=null ? node.get("university").asText(): null,
                 node.get("email")!=null ? node.get("email").asText(): null,
-                node.get("income")!=null ? node.get("income").asDouble(): null,
-                node.get("uciNumber")!=null ? node.get("uciNumber").asText(): null,
-                node.get("certificateNumber")!=null ? node.get("certificateNumber").asText(): null,
-                node.get("wesAck").asBoolean(),
-                node.get("consultantParty")!=null ? node.get("consultantParty").asText(): null,
-                node.get("wesParty")!=null ? node.get("wesParty").asText(): null,
-                node.get("universityParty")!=null ? node.get("universityParty").asText(): null
-                );
+                node.get("prStatus")!=null ? node.get("prStatus").asText(): null,
+                node.get("consultantParty")!=null ? node.get("consultantParty").asText(): "O=Consultants,L=London,C=GB",
+                node.get("wesParty")!=null ? node.get("wesParty").asText(): "O=Wes,L=London,C=GB",
+                node.get("universityParty")!=null ? node.get("universityParty").asText(): "O=University,L=New York,C=US");
 
     }
 }

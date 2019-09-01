@@ -23,29 +23,18 @@ import java.util.List;
 @BelongsToContract(PRContract.class)
 public class PRState implements LinearState, QueryableState {
 
-    private UniqueIdentifier id;
     private String firstName;
     private String lastName;
-    private String address;
-    private String gender;
-    LocalDateTime dob;
-    private String language;
-    private String eyeColour;
-    private String martialStatus;
+    private String courseName;
+    private String courseDuration;
+    private String university;
+    private UniqueIdentifier wesReferenceNumber;
     private String email;
-    private Double income;
-    private String uciNnumber;
-    private String certificateNumber;
-    private Boolean wesAck;
-
+    private PRStatus prStatus;
     private AbstractParty consultantParty;
     private AbstractParty wesParty;
     private AbstractParty universityParty;
 
-
-    public UniqueIdentifier getId() {
-        return id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -55,47 +44,30 @@ public class PRState implements LinearState, QueryableState {
         return lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public String getGender() {
-        return gender;
+    public String getCourseDuration() {
+        return courseDuration;
     }
 
-    public LocalDateTime getDob() {
-        return dob;
+    public String getUniversity() {
+        return university;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public String getEyeColour() {
-        return eyeColour;
-    }
-
-    public String getMartialStatus() {
-        return martialStatus;
+    public UniqueIdentifier getWesReferenceNumber() {
+        return wesReferenceNumber;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public double getIncome() {
-        return income;
+    public PRStatus getPrStatus() {
+        return prStatus;
     }
 
-    public String getUciNnumber() {
-        return uciNnumber;
-    }
-
-    public String getCertificateNumber() {
-        return certificateNumber;
-    }
-
-    public Boolean getWesAck() { return wesAck; }
 
 
     public AbstractParty getConsultantParty() {
@@ -110,67 +82,37 @@ public class PRState implements LinearState, QueryableState {
         return universityParty;
     }
 
-
     @ConstructorForDeserialization
-    public PRState(UniqueIdentifier id, String firstName, String lastName, String address, String gender, LocalDateTime dob, String language, String eyeColour, String martialStatus, String email, Double income, String uciNnumber, String certificateNumber, Boolean wesAck, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
-        this.id = id;
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.gender = gender;
-        this.dob = dob;
-        this.language = language;
-        this.eyeColour = eyeColour;
-        this.martialStatus = martialStatus;
+        this.courseName = courseName;
+        this.courseDuration = courseDuration;
+        this.university = university;
+        this.wesReferenceNumber = wesReferenceNumber;
         this.email = email;
-        this.income = income;
-        this.uciNnumber = uciNnumber;
-        this.certificateNumber = certificateNumber;
-        this.wesAck = wesAck;
+        this.prStatus = prStatus;
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
         this.universityParty = universityParty;
     }
 
-    public PRState(String firstName, String lastName, String address, String gender, LocalDateTime dob, String language, String eyeColour, String martialStatus, String email, Double income, String uciNnumber, String certificateNumber, Boolean wesAck, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
-        this.id = new UniqueIdentifier();
+
+
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.gender = gender;
-        this.dob = dob;
-        this.language = language;
-        this.eyeColour = eyeColour;
-        this.martialStatus = martialStatus;
+        this.courseName = courseName;
+        this.courseDuration = courseDuration;
+        this.university = university;
+        this.wesReferenceNumber = new UniqueIdentifier();
         this.email = email;
-        this.income = income;
-        this.uciNnumber = uciNnumber;
-        this.certificateNumber = certificateNumber;
-        this.wesAck = wesAck;
+        this.prStatus = prStatus;
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
         this.universityParty = universityParty;
     }
 
-//    public PRState(String firstName, String lastName, String address, String gender, LocalDateTime dob, String language, String eyeColour, String martialStatus, String email, Double income, String uciNnumber, String certificateNumber, Boolean wesAck, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
-//        this.id = new UniqueIdentifier();
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.address = address;
-//        this.gender = gender;
-//        this.dob = dob;
-//        this.language = language;
-//        this.eyeColour = eyeColour;
-//        this.martialStatus = martialStatus;
-//        this.email = email;
-//        this.income = income;
-//        this.uciNnumber = uciNnumber;
-//        this.certificateNumber = certificateNumber;
-//        this.wesAck = wesAck;
-//        this.consultantParty = consultantParty;
-//        this.wesParty = wesParty;
-//        this.universityParty = universityParty;
-//    }
 
 
 
@@ -178,7 +120,7 @@ public class PRState implements LinearState, QueryableState {
     @NotNull
     @Override
     public UniqueIdentifier getLinearId() {
-        return getId();
+        return getWesReferenceNumber();
     }
 
     @NotNull
