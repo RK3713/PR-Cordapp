@@ -14,10 +14,13 @@ public class BootUniversity {
     /**
      * Starts our Spring Boot application.
      */
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BootUniversity.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.setWebApplicationType(SERVLET);
         app.run(args);
+    }*/
+    public static void main(String[] args) {
+        SpringApplication.run(BootUniversity.class, args);
     }
 }

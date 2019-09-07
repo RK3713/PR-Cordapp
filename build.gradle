@@ -103,6 +103,7 @@ dependencies {
     // CorDapp dependencies.
     cordapp project(":pr-common")
     cordapp project(":pr-contract-state-schema")
+    cordapp project(":pr-student-contract-state-schema")
     cordapp project(":pr-consultant")
     cordapp project(":pr-university")
     cordapp project(":pr-wes")
@@ -116,12 +117,13 @@ dependencies {
 task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 
     directory "./build/nodes"
-    nodeDefaults {
+    /*nodeDefaults {
         projectCordapp {
             deploy = false
         }
         cordapp project(':pr-contract-state-schema')
-    }
+        cordapp project(":pr-student-contract-state-schema")
+    }*/
 
     node {
         name "O=Notary,L=London,C=GB"
@@ -156,8 +158,14 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 //        custom = {
 //            jvmArgs= [ '-Xmx1G' ]
 //        }
-        cordapp project(':pr-consultant')
-        cordapp project(':pr-common')
+        /*cordapp project(':pr-consultant')
+        cordapp project(':pr-common')*/
+        cordapps = [
+                "com.pr.consultant:pr-consultant:$version",
+                "com.pr.common:pr-common:$version",
+                "com.pr.contract.state.schema:pr-contract-state-schema:$version",
+                "com.pr.student.contract.state.schema:pr-student-contract-state-schema:$version"
+        ]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12346']
@@ -176,8 +184,14 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 //                devMode : false
 //        ]
 
-        cordapp project(':pr-university')
-        cordapp project(':pr-common')
+        /*cordapp project(':pr-university')
+        cordapp project(':pr-common')*/
+        cordapps = [
+                "com.pr.university:pr-university:$version",
+                "com.pr.common:pr-common:$version",
+                //"com.pr.contract.state.schema:pr-contract-state-schema:$version",
+                "com.pr.student.contract.state.schema:pr-student-contract-state-schema:$version"
+        ]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12345']
@@ -196,8 +210,14 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
 //                devMode : false
 //        ]
 
-        cordapp project(':pr-wes')
-        cordapp project(':pr-common')
+/*        cordapp project(':pr-wes')
+        cordapp project(':pr-common')*/
+        cordapps = [
+                "com.pr.wes:pr-wes:$version",
+                "com.pr.common:pr-common:$version",
+                "com.pr.contract.state.schema:pr-contract-state-schema:$version",
+                "com.pr.student.contract.state.schema:pr-student-contract-state-schema:$version"
+        ]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12344']

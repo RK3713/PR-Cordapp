@@ -14,10 +14,13 @@ public class BootConsultant {
     /**
      * Starts our Spring Boot application.
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BootConsultant.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.setWebApplicationType(SERVLET);
         app.run(args);
+    }*/
+    public static void main(String[] args) {
+        SpringApplication.run(BootConsultant.class, args);
     }
 }

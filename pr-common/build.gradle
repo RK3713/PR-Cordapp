@@ -57,9 +57,8 @@ dependencies {
     cordaCompile "net.corda:corda-node-api:$corda_release_version"
 
     // CorDapp dependencies.
-    cordapp project(":pr-contract-state-schema")    
-   
-    
+    cordapp project(":pr-contract-state-schema")
+    cordapp project(":pr-student-contract-state-schema")
 }
 
 task integrationTest(type: Test, dependsOn: []) {

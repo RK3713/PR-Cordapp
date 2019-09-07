@@ -35,6 +35,7 @@ dependencies {
     compile "org.slf4j:jul-to-slf4j:$slf4j_version"
     
     cordapp project(':pr-contract-state-schema')
+    cordapp project(':pr-student-contract-state-schema')
     cordapp project(':pr-common')
 }
 
