@@ -15,9 +15,13 @@ public class BootWes {
      * Starts our Spring Boot application.
      */
     public static void main(String[] args) {
+        SpringApplication.run(BootWes.class, args);
+    }
+
+    /*public static void main(String[] args) {
         SpringApplication app = new SpringApplication(BootWes.class);
         app.setBannerMode(Banner.Mode.OFF);
         app.setWebApplicationType(SERVLET);
         app.run(args);
-    }
+    }*/
 }

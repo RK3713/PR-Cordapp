@@ -1,4 +1,4 @@
-package com.pr.wes;
+package com.pr.wes.initiator;
 
 import co.paralleluniverse.fibers.Suspendable;
 import com.pr.common.data.PRFlowData;

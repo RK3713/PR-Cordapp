@@ -55,6 +55,7 @@ dependencies {
     // CorDapp dependencies.
     cordapp project(":pr-common")
     cordapp project(":pr-contract-state-schema")
+    cordapp project(":pr-student-contract-state-schema")
 }
 
 task integrationTest(type: Test, dependsOn: []) {

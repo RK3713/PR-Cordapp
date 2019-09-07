@@ -1,8 +1,11 @@
 package com.pr.server.common.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pr.contract.state.schema.schema.PRSchemaV1;
 import com.pr.contract.state.schema.states.PRState;
+import com.pr.student.contract.state.schema.state.RequestForm;
 import net.corda.core.contracts.StateAndRef;
+import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.messaging.CordaRPCOps;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.vault.Builder;
@@ -57,5 +60,35 @@ public class PRControllerHelper {
 
     }
 
+    public static List<StateAndRef<RequestForm>> createOutputWithHash(List<StateAndRef<RequestForm>> requestedStates)
+            throws JsonProcessingException {
+
+        for (StateAndRef<RequestForm> requestStatePage : requestedStates) {
+            String stateHash = requestStatePage.getRef().getTxhash().toString();
+            requestStatePage.getState().getData().setStateHash(stateHash);
+        }
+
+        return requestedStates;
+    }
+
+    public static List<StateAndRef<RequestForm>> getRequestFormStateFromLinearId(String id, CordaRPCOps rpcOps) {
+        UniqueIdentifier uniqueIdentifier = UniqueIdentifier.Companion.fromString(id);
+
+        Set<Class<RequestForm>> contractStateTypes
+                = new HashSet(Collections.singletonList(RequestForm.class));
+        List<StateAndRef<RequestForm>> updatedStateList;
+
+        QueryCriteria linearCriteria = new QueryCriteria.LinearStateQueryCriteria(null, Arrays.asList(uniqueIdentifier),
+                Vault.StateStatus.UNCONSUMED, contractStateTypes);
+
+        Vault.Page<RequestForm> results = rpcOps.vaultQueryByCriteria(linearCriteria, RequestForm.class);
+
+        if (results.getStates().size() > 0) {
+            return results.getStates();
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
 
 }

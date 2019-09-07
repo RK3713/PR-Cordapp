@@ -1,8 +1,8 @@
-package com.pr.wes;
+package com.pr.wes.responder;
 
 import co.paralleluniverse.fibers.Suspendable;
-import com.pr.common.flow.PRFlow;
-import com.pr.contract.state.schema.states.PRState;
+import com.pr.common.flow.RequestFormFlow;
+import com.pr.student.contract.state.schema.state.RequestForm;
 import net.corda.core.contracts.ContractState;
 import net.corda.core.crypto.SecureHash;
 import net.corda.core.flows.*;
@@ -12,14 +12,11 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
-// ******************
-// * Responder flow *
-// ******************
-@InitiatedBy(PRFlow.class)
-public class WesResponder extends FlowLogic<SignedTransaction> {
+@InitiatedBy(RequestFormFlow.class)
+public class RequestFlowResponder extends FlowLogic<SignedTransaction> {
     private FlowSession counterpartySession;
 
-    public WesResponder(FlowSession counterpartySession) {
+    public RequestFlowResponder(FlowSession counterpartySession) {
         this.counterpartySession = counterpartySession;
     }
 
@@ -29,8 +26,6 @@ public class WesResponder extends FlowLogic<SignedTransaction> {
         // Responder flow logic goes here.
 
         class SignTxFlow extends SignTransactionFlow {
-
-
             public SignTxFlow(@NotNull FlowSession otherSideSession, @NotNull ProgressTracker progressTracker) {
                 super(otherSideSession, progressTracker);
             }
@@ -39,18 +34,16 @@ public class WesResponder extends FlowLogic<SignedTransaction> {
             protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
                 requireThat(require -> {
                     ContractState output = stx.getTx().getOutputs().get(0).getData();
-                    require.using("This must be an PR State.", output instanceof PRState);
+                    require.using("This must be an RequestForm State.", output instanceof RequestForm);
                     return null;
                 });
 
             }
 
-
         }
 
-        final SignTxFlow signTxFlow = new SignTxFlow(counterpartySession,SignTransactionFlow.Companion.tracker());
+        final SignTxFlow signTxFlow = new SignTxFlow(counterpartySession, SignTransactionFlow.Companion.tracker());
         final SecureHash txId = subFlow(signTxFlow).getId();
-
-        return subFlow(new ReceiveFinalityFlow(counterpartySession,txId));
+        return subFlow(new ReceiveFinalityFlow(counterpartySession, txId));
     }
 }

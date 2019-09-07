@@ -1,7 +1,6 @@
-package com.pr.consultant;
+package com.pr.consultant.initiator;
 
 import co.paralleluniverse.fibers.Suspendable;
-import com.pr.common.PRConstant;
 import com.pr.common.data.PRFlowData;
 import com.pr.common.flow.PRFlow;
 import com.pr.common.helper.PRFlowHelper;
@@ -47,7 +46,7 @@ public class ConsultantInitiator extends PRFlow {
         this.command = command;
     }
 
-    public ConsultantInitiator (PRFlowData prFlowData) throws FlowException  {
+    public ConsultantInitiator(PRFlowData prFlowData) throws FlowException {
 
 
         this(prFlowData.getNewPRState(),
@@ -56,7 +55,7 @@ public class ConsultantInitiator extends PRFlow {
 
     }
 
-    public ConsultantInitiator () throws FlowException {
+    public ConsultantInitiator() throws FlowException {
 
     }
 
@@ -103,7 +102,7 @@ public class ConsultantInitiator extends PRFlow {
         progressTracker.setCurrentStep(BUILDING);
         validateTxCommand(command);
         TransactionBuilder txBuilder = new TransactionBuilder(notary)
-                .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID),txCommand);
+                .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID), txCommand);
 
         txBuilder.verify(getServiceHub());
 
@@ -114,20 +113,20 @@ public class ConsultantInitiator extends PRFlow {
         Set<FlowSession> flowSessions = new HashSet<>();
         Party party = getOurIdentity();
 
-        List<Party> parties = PRFlowHelper.getAllCounterParties(prState.getParticipants(),party, getServiceHub());
+        List<Party> parties = PRFlowHelper.getAllCounterParties(prState.getParticipants(), party, getServiceHub());
 
-        for (Party counterParty: parties){
+        for (Party counterParty : parties) {
             flowSessions.add(initiateFlow(counterParty));
         }
 
         logger.info(" ********************************************** ");
-        logger.info(" Parties :" + flowSessions.iterator().next().getCounterparty() );
+        logger.info(" Parties :" + flowSessions.iterator().next().getCounterparty());
         logger.info(" ********************************************** ");
 
-        final SignedTransaction signedTransaction = subFlow(new CollectSignaturesFlow(signTransaction,flowSessions,COLLECTING.childProgressTracker()));
+        final SignedTransaction signedTransaction = subFlow(new CollectSignaturesFlow(signTransaction, flowSessions, COLLECTING.childProgressTracker()));
 
         progressTracker.setCurrentStep(FINALISING);
-        SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction,flowSessions, FINALISING.childProgressTracker()));
+        SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction, flowSessions, FINALISING.childProgressTracker()));
 
         return fullySignedTxFinal;
     }

@@ -65,7 +65,7 @@ lib/dokka.jar
 /pr-university-server/out/
 /pr-wes/out/
 /pr-wes-server/out/
-
+/pr-student-contract-state-schema/out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
