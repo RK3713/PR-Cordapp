@@ -39,7 +39,7 @@ public class WesResponder extends FlowLogic<SignedTransaction> {
             protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
                 requireThat(require -> {
                     ContractState output = stx.getTx().getOutputs().get(0).getData();
-                    require.using("This must be an PR State.", output instanceof PRState);
+                    require.using("This must be a PR State.", output instanceof PRState);
                     return null;
                 });
 

@@ -6,6 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class CommonWhitelist implements SerializationWhitelist {
     @NotNull
     @Override

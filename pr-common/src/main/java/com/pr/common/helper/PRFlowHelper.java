@@ -7,6 +7,11 @@ import net.corda.core.node.ServiceHub;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class PRFlowHelper {
     // any common function to be added in here.
     public static List<Party> getAllCounterParties(List<AbstractParty> abstractPartyList, Party party, ServiceHub serviceHub) {

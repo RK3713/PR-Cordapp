@@ -7,6 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static org.springframework.boot.WebApplicationType.SERVLET;
 
 /**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
+/**
  * Our Spring Boot application.
  */
 @SpringBootApplication(scanBasePackages = {"com.pr.webserver.*","com.pr.server.common"})

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @Component
 public class RPConnector {
     private static final Logger logger = LoggerFactory.getLogger(RPConnector.class);

@@ -2,6 +2,10 @@ package com.pr.common.exception;
 
 import net.corda.core.serialization.CordaSerializable;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public class PRException extends RuntimeException {
     public PRException() {

@@ -13,6 +13,11 @@ import net.corda.core.serialization.CordaSerializable;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @JsonSerialize
 @CordaSerializable
 @JsonDeserialize(using = PRBODeserializer.class)
@@ -28,10 +33,11 @@ public class PRBO implements BusinessObject {
     private String prStatus;
     private String consultantParty;
     private String wesParty;
-    private String universityParty;
+    private Integer amount;
+
 
     @ConstructorForDeserialization
-    public PRBO(String firstName, String lastName, String courseName, String courseDuration, String university, String email, String prStatus, String consultantParty, String wesParty, String universityParty) {
+    public PRBO(String firstName, String lastName, String courseName, String courseDuration, String university, String email, String prStatus, String consultantParty, String wesParty, Integer amount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
@@ -41,7 +47,7 @@ public class PRBO implements BusinessObject {
         this.prStatus = prStatus;
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
-        this.universityParty = universityParty;
+        this.amount = amount;
     }
 
 
@@ -117,15 +123,13 @@ public class PRBO implements BusinessObject {
         this.wesParty = wesParty;
     }
 
-    public String getUniversityParty() {
-        return universityParty;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setUniversityParty(String universityParty) {
-        this.universityParty = universityParty;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
-
-
 
 
 }

@@ -1,6 +1,10 @@
 package com.pr.common;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class PRConstant {
-    public static final String SO_PENDING_ALLOCATION = "SO_PENDING_ALLOCATION";
+
 
 }

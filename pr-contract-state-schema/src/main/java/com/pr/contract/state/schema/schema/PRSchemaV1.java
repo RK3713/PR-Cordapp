@@ -3,6 +3,7 @@ package com.pr.contract.state.schema.schema;
 import com.google.common.collect.ImmutableList;
 import com.pr.contract.state.schema.states.PRState;
 import com.pr.contract.state.schema.states.PRStatus;
+import net.corda.core.contracts.Amount;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.schemas.MappedSchema;
@@ -16,6 +17,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Currency;
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 public class PRSchemaV1 extends MappedSchema {
 
@@ -59,13 +65,11 @@ public class PRSchemaV1 extends MappedSchema {
         @Column(name = "WesParty")
         private AbstractParty wesParty;
 
-        @Column(name = "UniversityParty")
-        private AbstractParty universityParty;
-
-
 
         @ConstructorForDeserialization
-        public PersistentPR(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
+        public PersistentPR(String firstName, String lastName, String courseName, String courseDuration, String university,
+                            UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty,
+                            AbstractParty wesParty) {
             super();
             this.firstName = firstName;
             this.lastName = lastName;
@@ -77,7 +81,6 @@ public class PRSchemaV1 extends MappedSchema {
             this.prStatus = prStatus;
             this.consultantParty = consultantParty;
             this.wesParty = wesParty;
-            this.universityParty = universityParty;
         }
 
 
@@ -94,7 +97,6 @@ public class PRSchemaV1 extends MappedSchema {
             this.prStatus = prState.getPrStatus();
             this.consultantParty = prState.getConsultantParty();
             this.wesParty = prState.getWesParty();
-            this.universityParty = prState.getUniversityParty();
         }
 
         public PersistentPR(){

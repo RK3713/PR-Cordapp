@@ -6,23 +6,27 @@ import com.pr.common.flow.PRFlow;
 import com.pr.common.helper.PRFlowHelper;
 import com.pr.contract.state.schema.contracts.PRContract;
 import com.pr.contract.state.schema.states.PRState;
-import net.corda.core.contracts.Command;
-import net.corda.core.contracts.StateAndContract;
-import net.corda.core.contracts.StateAndRef;
+import com.pr.contract.state.schema.states.PRStatus;
+import net.corda.core.contracts.*;
 import net.corda.core.flows.*;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import net.corda.core.utilities.ProgressTracker;
+import net.corda.finance.flows.CashPaymentFlow;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.util.Currency;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 // ******************
 // * Initiator flow *
@@ -46,7 +50,7 @@ public class ConsultantInitiator extends PRFlow {
         this.command = command;
     }
 
-    public ConsultantInitiator(PRFlowData prFlowData) throws FlowException {
+    public ConsultantInitiator (PRFlowData prFlowData) throws FlowException  {
 
 
         this(prFlowData.getNewPRState(),
@@ -55,7 +59,7 @@ public class ConsultantInitiator extends PRFlow {
 
     }
 
-    public ConsultantInitiator() throws FlowException {
+    public ConsultantInitiator () throws FlowException {
 
     }
 
@@ -93,6 +97,9 @@ public class ConsultantInitiator extends PRFlow {
     @Override
     public SignedTransaction call() throws FlowException {
         // Initiator flow logic goes here.
+
+        TransactionBuilder txBuilder = null;
+
         progressTracker.setCurrentStep(INITIALISING);
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
@@ -101,8 +108,15 @@ public class ConsultantInitiator extends PRFlow {
 
         progressTracker.setCurrentStep(BUILDING);
         validateTxCommand(command);
-        TransactionBuilder txBuilder = new TransactionBuilder(notary)
-                .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID), txCommand);
+
+
+        if (command instanceof PRContract.Commands.CREATE){
+            txBuilder = new TransactionBuilder(notary)
+                    .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID),txCommand);
+        }else {
+            txBuilder = new TransactionBuilder(notary)
+                    .withItems(new StateAndContract(prState,PRContract.PR_CONTRACT_ID),txCommand,previousPRState);
+        }
 
         txBuilder.verify(getServiceHub());
 
@@ -113,20 +127,24 @@ public class ConsultantInitiator extends PRFlow {
         Set<FlowSession> flowSessions = new HashSet<>();
         Party party = getOurIdentity();
 
-        List<Party> parties = PRFlowHelper.getAllCounterParties(prState.getParticipants(), party, getServiceHub());
+        List<Party> parties = PRFlowHelper.getAllCounterParties(prState.getParticipants(),party, getServiceHub());
 
-        for (Party counterParty : parties) {
+        for (Party counterParty: parties){
             flowSessions.add(initiateFlow(counterParty));
         }
 
         logger.info(" ********************************************** ");
-        logger.info(" Parties :" + flowSessions.iterator().next().getCounterparty());
+        logger.info(" Parties :" + flowSessions.iterator().next().getCounterparty() );
         logger.info(" ********************************************** ");
 
-        final SignedTransaction signedTransaction = subFlow(new CollectSignaturesFlow(signTransaction, flowSessions, COLLECTING.childProgressTracker()));
+        final SignedTransaction signedTransaction = subFlow(new CollectSignaturesFlow(signTransaction,flowSessions,COLLECTING.childProgressTracker()));
 
         progressTracker.setCurrentStep(FINALISING);
-        SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction, flowSessions, FINALISING.childProgressTracker()));
+        SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction,flowSessions, FINALISING.childProgressTracker()));
+
+        if (prState.getPrStatus().equals(PRStatus.APPLICATION_SUBMITTED))
+            subFlow(new CashPaymentFlow(prState.getAmount(), (Party) prState.getWesParty()));
+
 
         return fullySignedTxFinal;
     }

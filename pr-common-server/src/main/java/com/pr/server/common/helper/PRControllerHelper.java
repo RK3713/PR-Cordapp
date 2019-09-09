@@ -18,9 +18,14 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_NUM;
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;
 
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 @CordaSerializable
 public class PRControllerHelper {
@@ -38,25 +43,25 @@ public class PRControllerHelper {
         QueryCriteria generalCriteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
         Field PrIdField = PRSchemaV1.PersistentPR.class.getDeclaredField("wesReferenceNumber");
 
-            CriteriaExpression PrIdIndex = Builder.equal(PrIdField, requestId);
-            QueryCriteria customCriteria = new QueryCriteria.VaultCustomQueryCriteria<>(PrIdIndex);
-            QueryCriteria criteria = generalCriteria.and(customCriteria);
-            PageSpecification pageSpecification;
-            Vault.Page<PRState> results;
-            List<StateAndRef<PRState>> states = new ArrayList<>();
-            Integer pageNum = DEFAULT_PAGE_NUM;
-            do {
-                pageSpecification = new PageSpecification(pageNum, DEFAULT_PAGE_SIZE);
-                results = rpcOps.vaultQueryByWithPagingSpec(PRState.class, criteria, pageSpecification);
-                states.addAll(results.getStates());
-                pageNum++;
-            } while ((pageSpecification.getPageSize() * (pageNum)) <= results.getTotalStatesAvailable());
-            if (results.getStates().size() > 0) {
-                return results.getStates();
+        CriteriaExpression PrIdIndex = Builder.equal(PrIdField, requestId);
+        QueryCriteria customCriteria = new QueryCriteria.VaultCustomQueryCriteria<>(PrIdIndex);
+        QueryCriteria criteria = generalCriteria.and(customCriteria);
+        PageSpecification pageSpecification;
+        Vault.Page<PRState> results;
+        List<StateAndRef<PRState>> states = new ArrayList<>();
+        Integer pageNum = DEFAULT_PAGE_NUM;
+        do {
+            pageSpecification = new PageSpecification(pageNum, DEFAULT_PAGE_SIZE);
+            results = rpcOps.vaultQueryByWithPagingSpec(PRState.class, criteria, pageSpecification);
+            states.addAll(results.getStates());
+            pageNum++;
+        } while ((pageSpecification.getPageSize() * (pageNum)) <= results.getTotalStatesAvailable());
+        if (results.getStates().size() > 0) {
+            return results.getStates();
 
-            } else {
-                return new ArrayList<>();
-            }
+        } else {
+            return new ArrayList<>();
+        }
 
     }
 

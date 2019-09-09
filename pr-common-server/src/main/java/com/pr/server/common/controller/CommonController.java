@@ -11,6 +11,7 @@ import com.pr.contract.state.schema.states.PRStatus;
 import com.pr.server.common.bo.impl.PRBO;
 import com.pr.server.common.bo.impl.RequestFormBO;
 import com.pr.server.common.config.RPConnector;
+import net.corda.core.contracts.Amount;
 import com.pr.server.common.helper.PRControllerHelper;
 import com.pr.student.contract.state.schema.state.RequestForm;
 import com.pr.student.contract.state.schema.state.RequestStatus;
@@ -38,6 +39,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;
+
+import static net.corda.finance.contracts.GetBalances.getCashBalances;
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 @CrossOrigin
 public abstract class CommonController {
@@ -97,12 +104,19 @@ public abstract class CommonController {
     }
 
 
-    protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
-                                       AbstractParty wesParty, AbstractParty universityParty) {
+    @CrossOrigin
+    @GetMapping("getNodeCashBalance")
+    public Map<Currency, Amount<Currency>> nodeCashBalances() {
+        return getCashBalances(connector.getRPCops());
+    }
 
-        return new PRState(prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
+
+    protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
+                                       AbstractParty wesParty, Amount<Currency> amount, AbstractParty receivingParty) {
+
+        return new PRState( prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
                 prData.getCourseDuration(), prData.getUniversity(), prData.getEmail(),
-                prStatus, consultantParty, wesParty, universityParty);
+                prStatus, consultantParty, wesParty, amount, receivingParty);
 
     }
 
@@ -111,7 +125,7 @@ public abstract class CommonController {
         return new PRState(previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getCourseName(),
                 previousPRState.getCourseDuration(), previousPRState.getUniversity(), previousPRState.getWesReferenceNumber(),
                 previousPRState.getEmail(), prStatus, previousPRState.getConsultantParty(),
-                previousPRState.getWesParty(), previousPRState.getUniversityParty());
+                previousPRState.getWesParty(), previousPRState.getAmount());
     }
 
     @CrossOrigin
