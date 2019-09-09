@@ -11,6 +11,10 @@ import com.pr.server.common.bo.impl.RequestFormBO;
 
 import java.io.IOException;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class RequestBODeserializer extends JsonDeserializer<RequestFormBO> {
     @Override
     public RequestFormBO deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
@@ -27,9 +31,8 @@ public class RequestBODeserializer extends JsonDeserializer<RequestFormBO> {
         requestFormBO.setDegreeName(node.get("degreeName") != null ? node.get("degreeName").asText() : null);
         requestFormBO.setDuration(node.get("duration") != null ? node.get("duration").asText() : null);
         requestFormBO.setUniversityAddress(node.get("universityAddress") != null ? node.get("universityAddress").asText() : null);
-        //requestFormBO.setApproved(node.get("isApproved") != null ? Boolean.valueOf(node.get("isApproved").asText()) : null);
         requestFormBO.setComments(node.get("comments") != null ? node.get("comments").asText() : null);
-        requestFormBO.setWESAddress(node.get("wesAddress") != null ? node.get("WESAddress").asText() : null);
+        requestFormBO.setWESAddress(node.get("wesAddress") != null ? node.get("wesAddress").asText() : null);
         requestFormBO.setWesParty(node.get("wesParty") != null ? node.get("wesParty").asText() : null);
         requestFormBO.setUniversityParty(node.get("universityParty") != null ? node.get("universityParty").asText() : null);
         requestFormBO.setConsultantParty(node.get("consultantParty") != null ? node.get("consultantParty").asText() : null);

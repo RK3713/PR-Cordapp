@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pr.server.common.bo.BusinessObject;
 import com.pr.server.common.deserializer.RequestBODeserializer;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @JsonDeserialize(using = RequestBODeserializer.class)
 public class RequestFormBO implements BusinessObject {
 

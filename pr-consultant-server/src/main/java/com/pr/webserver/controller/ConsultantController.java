@@ -57,9 +57,9 @@ public class ConsultantController extends CommonController {
 
 
     @CrossOrigin
-    @GetMapping("/hello")
-    private String hello() {
-        return "hello world";
+    @GetMapping(value = "/hello", produces = "text/plain")
+    private String uniName() {
+        return "Hello Consultant";
     }
 
     /**
@@ -138,7 +138,7 @@ public class ConsultantController extends CommonController {
 
 
     /**
-     * @param id is a wesReferenceNumber which should be provided while querying state according to wesReferenceNumber
+     * @param id is a  UUID wesReferenceNumber which should be provided while querying state according to wesReferenceNumber
      * @return It returns the state by querying the vault
      * @throws Exception
      */
@@ -187,6 +187,13 @@ public class ConsultantController extends CommonController {
         return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
 }
 
+    /**
+     *
+     * @param command is a parameter which creates a new Academic form request (CREATE)
+     * @param requestFormBO is a json object which we provide as an input to our post api
+     * @return It returns status whether new Academic form request has created or not
+     */
+
     @CrossOrigin
     @PostMapping("raiseAcademicFormRequest/{command}")
     public ResponseEntity raiseBookingRequest(@PathVariable("command") String command,
@@ -218,13 +225,20 @@ public class ConsultantController extends CommonController {
                             previousrequestFormState, contractCommand));
             signedTransaction = flowHandle.getReturnValue().get();
             logger.info(String.format("signed Tx id: %s", signedTransaction.getId().toString()));
-            return ResponseEntity.ok("Booking Request created with Txn Id: " + signedTransaction.getId().toString());
+            return ResponseEntity.ok("Student Transcript Request created with Txn Id: " + signedTransaction.getId().toString());
         } catch (InterruptedException | ExecutionException e) {
             logger.error(e.getMessage(), e.getCause());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    /***
+     *
+     * @param requestId is a UUID which helps to query the state from vault
+     * @param requestStatus is a parameter to change request status (APPLICATION_SUBMITTED etc.)
+     * @return It returns status whether Transcript details are confirmed or not
+     */
 
     @CrossOrigin
     @PostMapping("confirmTranscriptDetails/{requestId}")
@@ -265,6 +279,14 @@ public class ConsultantController extends CommonController {
 
     }
 
+
+
+    /**
+     *
+     * @param abstractParty is a abstract party name as String
+     * @return It returns matching abstract party
+     */
+
     private AbstractParty getParty(String abstractParty) {
         AbstractParty party = null;
         Set<Party> partyFrom = connector.getRPCops().partiesFromName(abstractParty.toString(), false);
@@ -274,16 +296,6 @@ public class ConsultantController extends CommonController {
             party = parties.next();
         }
         return party;
-    }
-
-    /**
-     * @param partyName is a full party name
-     * @return It returns the exact party name from full name of party
-     */
-
-    private AbstractParty getPartyFromFullName(String partyName) {
-        CordaX500Name x500Name = CordaX500Name.parse(partyName);
-        return connector.getRPCops().wellKnownPartyFromX500Name(x500Name);
     }
 
 }

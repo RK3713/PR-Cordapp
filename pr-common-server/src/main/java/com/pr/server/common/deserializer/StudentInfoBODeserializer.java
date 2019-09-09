@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class StudentInfoBODeserializer extends JsonDeserializer<StudentInfoBO> {
     @Override
     public StudentInfoBO deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {

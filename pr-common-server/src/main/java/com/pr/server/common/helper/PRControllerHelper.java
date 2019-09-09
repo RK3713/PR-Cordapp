@@ -79,8 +79,7 @@ public class PRControllerHelper {
     public static List<StateAndRef<RequestForm>> getRequestFormStateFromLinearId(String id, CordaRPCOps rpcOps) {
         UniqueIdentifier uniqueIdentifier = UniqueIdentifier.Companion.fromString(id);
 
-        Set<Class<RequestForm>> contractStateTypes
-                = new HashSet(Collections.singletonList(RequestForm.class));
+        Set<Class<RequestForm>> contractStateTypes = new HashSet(Collections.singletonList(RequestForm.class));
         List<StateAndRef<RequestForm>> updatedStateList;
 
         QueryCriteria linearCriteria = new QueryCriteria.LinearStateQueryCriteria(null, Arrays.asList(uniqueIdentifier),
@@ -90,8 +89,7 @@ public class PRControllerHelper {
 
         if (results.getStates().size() > 0) {
             return results.getStates();
-        }
-        else {
+        } else {
             return new ArrayList<>();
         }
     }

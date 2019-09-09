@@ -5,6 +5,10 @@ import net.corda.core.serialization.CordaSerializable;
 
 import java.util.Arrays;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public enum RequestStatus {
 

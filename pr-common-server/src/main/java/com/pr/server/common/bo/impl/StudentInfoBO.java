@@ -5,6 +5,10 @@ import com.pr.server.common.bo.BusinessObject;
 import com.pr.server.common.deserializer.StudentInfoBODeserializer;
 import net.corda.core.contracts.UniqueIdentifier;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @JsonDeserialize(using = StudentInfoBODeserializer.class)
 public class StudentInfoBO implements BusinessObject {
     private String rollNumber;

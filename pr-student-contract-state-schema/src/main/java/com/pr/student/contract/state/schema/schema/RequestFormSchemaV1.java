@@ -11,6 +11,10 @@ import net.corda.core.serialization.ConstructorForDeserialization;
 
 import javax.persistence.*;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class RequestFormSchemaV1 extends MappedSchema {
 
     public RequestFormSchemaV1() {
@@ -20,12 +24,7 @@ public class RequestFormSchemaV1 extends MappedSchema {
     @Entity
     @Table(name = "academic_wes_request_form")
     public static class PersistentRequestForm extends PersistentState {
-        /*@Column(name = "wes")
-        private AbstractParty wes;
-        @Column(name = "university")
-        private AbstractParty university;
-        @Column(name = "consultant")
-        private AbstractParty consultant;*/
+
         @Column(name = "firstName")
         private String firstName;
         @Column(name = "lastName")

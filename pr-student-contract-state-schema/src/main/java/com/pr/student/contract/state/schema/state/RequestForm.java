@@ -16,6 +16,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande and Rishi Kundu
+ */
+
 @CordaSerializable
 @BelongsToContract(RequestFormContract.class)
 public class RequestForm implements LinearState, QueryableState {
@@ -24,7 +28,8 @@ public class RequestForm implements LinearState, QueryableState {
     private String WESReferenceNumber;
     private String universityName;
     private String studentName;
-    private UniqueIdentifier rollNumber;
+    private UniqueIdentifier requestId;
+    private String rollNumber;
     private String degreeName;
     private String duration;
     private String universityAddress;
@@ -37,6 +42,10 @@ public class RequestForm implements LinearState, QueryableState {
     private AbstractParty universityParty;
     private RequestStatus requestStatus;
     private String stateHash;
+
+    public UniqueIdentifier getRequestId() {
+        return requestId;
+    }
 
     public String getStateHash() {
         return stateHash;
@@ -83,7 +92,7 @@ public class RequestForm implements LinearState, QueryableState {
         return studentName;
     }
 
-    public UniqueIdentifier getRollNumber() {
+    public String getRollNumber() {
         return rollNumber;
     }
 
@@ -116,12 +125,13 @@ public class RequestForm implements LinearState, QueryableState {
     }
 
     @ConstructorForDeserialization
-    public RequestForm(UniqueIdentifier rollNumber, Boolean isWESRequested, Boolean isTranscriptRequested, String WESReferenceNumber, String universityName, String studentName, String degreeName, String duration, String universityAddress, String WESAddress, Boolean isApproved, String comments, StudentInfoState studentInfoState, AbstractParty wesParty, AbstractParty consultantParty, AbstractParty universityParty, RequestStatus requestStatus) {
+    public RequestForm(UniqueIdentifier requestId, Boolean isWESRequested, Boolean isTranscriptRequested, String WESReferenceNumber, String universityName, String studentName, String degreeName, String duration, String universityAddress, String WESAddress, Boolean isApproved, String comments, StudentInfoState studentInfoState, AbstractParty wesParty, AbstractParty consultantParty, AbstractParty universityParty, RequestStatus requestStatus,String rollNumber) {
         this.isWESRequested = isWESRequested;
         this.isTranscriptRequested = isTranscriptRequested;
         this.WESReferenceNumber = WESReferenceNumber;
         this.universityName = universityName;
         this.studentName = studentName;
+        this.requestId = requestId;
         this.rollNumber = rollNumber;
         this.degreeName = degreeName;
         this.duration = duration;
@@ -136,12 +146,13 @@ public class RequestForm implements LinearState, QueryableState {
         this.requestStatus = requestStatus;
     }
 
-    public RequestForm(UniqueIdentifier rollNumber, Boolean isWESRequested, Boolean isTranscriptRequested, String WESReferenceNumber, String universityName, String studentName, String degreeName, String duration, String universityAddress, String WESAddress, Boolean isApproved, String comments,AbstractParty wesParty, AbstractParty consultantParty, AbstractParty universityParty, RequestStatus requestStatus) {
+    public RequestForm(UniqueIdentifier requestId, Boolean isWESRequested, Boolean isTranscriptRequested, String WESReferenceNumber, String universityName, String studentName, String degreeName, String duration, String universityAddress, String WESAddress, Boolean isApproved, String comments,AbstractParty wesParty, AbstractParty consultantParty, AbstractParty universityParty, RequestStatus requestStatus,String rollNumber) {
         this.isWESRequested = isWESRequested;
         this.isTranscriptRequested = isTranscriptRequested;
         this.WESReferenceNumber = WESReferenceNumber;
         this.universityName = universityName;
         this.studentName = studentName;
+        this.requestId = requestId;
         this.rollNumber = rollNumber;
         this.degreeName = degreeName;
         this.duration = duration;
@@ -163,6 +174,7 @@ public class RequestForm implements LinearState, QueryableState {
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
+        this.requestId = other.requestId;
         this.degreeName = other.degreeName;
         this.duration = other.duration;
         this.universityAddress = other.universityAddress;
@@ -184,6 +196,7 @@ public class RequestForm implements LinearState, QueryableState {
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
+        this.requestId = other.requestId;
         this.degreeName = other.degreeName;
         this.duration = other.duration;
         this.universityAddress = other.universityAddress;
@@ -205,6 +218,7 @@ public class RequestForm implements LinearState, QueryableState {
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
+        this.requestId = other.requestId;
         this.degreeName = other.degreeName;
         this.duration = other.duration;
         this.universityAddress = other.universityAddress;
@@ -223,7 +237,7 @@ public class RequestForm implements LinearState, QueryableState {
     @NotNull
     @Override
     public UniqueIdentifier getLinearId() {
-        return rollNumber;
+        return requestId;
     }
 
     @NotNull

@@ -5,6 +5,10 @@ import net.corda.core.serialization.CordaSerializable;
 
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public class Transcript {
     private String rollNumber;

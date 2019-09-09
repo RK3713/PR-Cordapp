@@ -2,6 +2,10 @@ package com.pr.server.common.bo.impl;
 
 import com.pr.server.common.bo.BusinessObject;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class SubjectBO implements BusinessObject {
     private String subjectName;
     private Double marksObtained;

@@ -4,6 +4,10 @@ import com.pr.server.common.bo.BusinessObject;
 
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class SemesterBO implements BusinessObject {
     private String semesterNumber;
     private List<SubjectBO> subbjectsList;

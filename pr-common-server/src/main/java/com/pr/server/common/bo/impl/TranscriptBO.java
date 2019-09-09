@@ -2,6 +2,10 @@ package com.pr.server.common.bo.impl;
 
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class TranscriptBO {
     private String rollNumber;
     private String name;

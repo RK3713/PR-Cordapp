@@ -1,9 +1,14 @@
 package com.pr.student.contract.state.schema.state;
 
 import net.corda.core.serialization.ConstructorForDeserialization;
+import net.corda.core.serialization.CordaSerializable;
 
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+@CordaSerializable
 public class Semester {
     private String semesterNumber;
     private List<Subjects> subbjectsList;

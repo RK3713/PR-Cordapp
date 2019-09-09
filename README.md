@@ -14,15 +14,8 @@ process (PR - Process)
  * Install IntelliJ IDEA
  * Install Postman
 
-# Usage
 
-## Running tests inside IntelliJ
-	
-We recommend editing your IntelliJ preferences so that you use the Gradle runner - this means that the quasar utils
-plugin will make sure that some flags (like ``-javaagent`` - see below) are
-set for you.
-
-# Running the PR - Cordapp
+# Running the PR - CorDapp
 
 ### First Way:
 
@@ -60,7 +53,8 @@ Navigate to `/build/nodes` folder
 
     
  
- **Running API's:**
+ ## Running API's
+ 
  
  Hit POST api from Consultant to Wes. Use prRequest.json in json folder as input.
  * http://localhost:50020/consultant/

@@ -3,6 +3,10 @@ package com.pr.student.contract.state.schema.state;
 import net.corda.core.serialization.ConstructorForDeserialization;
 import net.corda.core.serialization.CordaSerializable;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public class Subjects {
     private String subjectName;

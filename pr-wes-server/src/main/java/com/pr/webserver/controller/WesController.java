@@ -11,7 +11,10 @@ import com.pr.server.common.helper.PRControllerHelper;
 import com.pr.wes.initiator.WesInitiator;
 import net.corda.core.contracts.Amount;
 import net.corda.core.contracts.StateAndRef;
+import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.messaging.FlowHandle;
+import net.corda.core.node.services.Vault;
+import net.corda.core.node.services.vault.QueryCriteria;
 import net.corda.core.transactions.SignedTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,17 +24,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Currency;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingLong;
 
 /**
- * Define your API endpoints here.
+ * @author Ajinkya Pande & Rishi Kundu
  */
+
 @RestController
 @RequestMapping("/wes") // The paths for HTTP requests are relative to this base path.
 @CrossOrigin
@@ -39,6 +41,20 @@ public class WesController extends CommonController {
 
     private final static Logger logger = LoggerFactory.getLogger(WesController.class);
 
+
+    @CrossOrigin
+    @GetMapping(value = "/hello", produces = "text/plain")
+    private String uniName() {
+        return "Hello Wes";
+    }
+
+    /**
+     *
+     * @param requestId is UUID which helps to update the state
+     * @param prbo is a json object which we provide as an input to our post api
+     * @return It returns status whether PR request is updated or not
+     * @throws Exception
+     */
 
 
 
@@ -60,7 +76,7 @@ public class WesController extends CommonController {
 
 
             try {
-                PRState newPRState = convertToPRStateForUpdate(previousPrState.get(0).getState().getData(), PRStatus.APPLICATION_SUBMITTED,prbo);
+                PRState newPRState = convertToPRStateForUpdate(previousPrState.get(0).getState().getData(), PRStatus.APPLICATION_ACKNOWLEDGEMENT,prbo);
                 FlowHandle<SignedTransaction> signedTransactionFlowHandle = connector.getRPCops().startFlowDynamic(
                         WesInitiator.class,
                         new PRFlowData(newPRState, previousPrState.get(0),command));
@@ -75,19 +91,55 @@ public class WesController extends CommonController {
 
     }
 
+
     /**
-     *
-     * @return It returns the state by querying vault
+     * @param id is a UUID wesReferenceNumber which should be provided while querying state according to wesReferenceNumber
+     * @return It returns the state by querying the vault
      * @throws Exception
      */
 
     @CrossOrigin
     @GetMapping("/")
-    public ResponseEntity getPRRequestDetails() throws Exception{
+    public ResponseEntity getPRRequestDetails(@RequestParam(value = "id", required = false) String id) throws Exception {
 
-        List<StateAndRef<PRState>> states = connector.getRPCops().vaultQuery(PRState.class).getStates();
-        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(mapper.writeValueAsString(states));
+        if (!StringUtils.isEmpty(id)) {
+            try {
+                UniqueIdentifier uniqueIdentifier = UniqueIdentifier.Companion.fromString(id);
+                Set<Class<PRState>> contractStateTypes = new HashSet(Collections.singletonList(PRState.class));
 
+                QueryCriteria linearCriteria = new QueryCriteria.LinearStateQueryCriteria(null, Arrays.asList(uniqueIdentifier),
+                        Vault.StateStatus.UNCONSUMED, contractStateTypes);
+
+                Vault.Page<PRState> results = connector.getRPCops().vaultQueryByCriteria(linearCriteria, PRState.class);
+
+
+                if (results.getStates().size() > 0) {
+                    return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(mapper.writeValueAsString(results.getStates()));
+                } else {
+                    return ResponseEntity.status(HttpStatus.OK).body("No Records found");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                List<StateAndRef<PRState>> states = connector.getRPCops().vaultQuery(PRState.class).getStates();
+                if (logger.isDebugEnabled()) {
+                    states.forEach(e -> logger.debug(e.getState().getData().toString()));
+                }
+                if (!states.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body
+                            (mapper.writeValueAsString(states));
+                } else {
+                    return ResponseEntity.noContent().build();
+                }
+
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
     }
 
 

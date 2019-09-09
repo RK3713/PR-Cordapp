@@ -10,20 +10,12 @@ import static org.springframework.boot.WebApplicationType.SERVLET;
  * @author Ajinkya Pande & Rishi Kundu
  */
 
-/**
- * Our Spring Boot application.
- */
+
 @SpringBootApplication(scanBasePackages = {"com.pr.webserver.*","com.pr.server.common"})
 public class BootConsultant {
     /**
-     * Starts our Spring Boot application.
+     * Starts Consultant Spring Boot application.
      */
-    /*public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(BootConsultant.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.setWebApplicationType(SERVLET);
-        app.run(args);
-    }*/
     public static void main(String[] args) {
         SpringApplication.run(BootConsultant.class, args);
     }

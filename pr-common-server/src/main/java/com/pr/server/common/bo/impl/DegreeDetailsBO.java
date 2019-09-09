@@ -3,6 +3,10 @@ package com.pr.server.common.bo.impl;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pr.server.common.bo.BusinessObject;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class DegreeDetailsBO implements BusinessObject {
     private String degreeName;
     private String universityName;

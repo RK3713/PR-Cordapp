@@ -7,21 +7,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static org.springframework.boot.WebApplicationType.SERVLET;
 
 /**
- * Our Spring Boot application.
+ * @author Ajinkya Pande & Rishi Kundu
  */
+
 @SpringBootApplication(scanBasePackages = {"com.pr.webserver.*","com.pr.server.common"})
 public class BootWes {
     /**
-     * Starts our Spring Boot application.
+     * Starts WES Spring Boot application.
      */
     public static void main(String[] args) {
         SpringApplication.run(BootWes.class, args);
     }
 
-    /*public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(BootWes.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.setWebApplicationType(SERVLET);
-        app.run(args);
-    }*/
 }

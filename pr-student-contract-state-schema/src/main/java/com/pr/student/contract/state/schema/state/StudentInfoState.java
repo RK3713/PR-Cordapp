@@ -13,7 +13,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
+@CordaSerializable
 public class StudentInfoState {
 
     private String rollNumber;
@@ -25,8 +29,6 @@ public class StudentInfoState {
     private DegreeDetails degreeDetails;
     private Transcript transcript;
     private University university;
-    //private String status;
-    //private RequestForm requestForm;
 
     public String getRollNumber() {
         return rollNumber;
@@ -64,13 +66,6 @@ public class StudentInfoState {
         return university;
     }
 
-    /*public String getStatus() {
-        return status;
-    }*/
-
-    /*public RequestForm getRequestForm() {
-        return requestForm;
-    }*/
 
     @ConstructorForDeserialization
     public StudentInfoState(String rollNumber, String WESReferenceNumber, String firstName, String lastName,

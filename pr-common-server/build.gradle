@@ -25,6 +25,8 @@ cordapp {
     }
 }
 dependencies {
+
+    // Corda dependencies
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile("org.springframework.boot:spring-boot-starter-web:$spring_boot_version") {
         exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
@@ -36,7 +38,8 @@ dependencies {
     compile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
     compile "org.apache.logging.log4j:log4j-web:${log4j_version}"
     compile "org.slf4j:jul-to-slf4j:$slf4j_version"
-    
+
+    //CorDapp dependencies
     cordapp project(':pr-contract-state-schema')
     cordapp project(':pr-student-contract-state-schema')
     cordapp project(':pr-common')

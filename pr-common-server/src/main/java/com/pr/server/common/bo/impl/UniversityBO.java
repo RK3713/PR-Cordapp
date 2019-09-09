@@ -1,5 +1,9 @@
 package com.pr.server.common.bo.impl;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class UniversityBO {
     private String universityName;
     private String address;

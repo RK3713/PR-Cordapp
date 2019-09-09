@@ -59,7 +59,12 @@ public abstract class CommonController {
     protected ObjectMapper mapper;
 
 
-    private AbstractParty getPartyFromFullName(String partyName) {
+    /**
+     * @param partyName is a full party name
+     * @return It returns the exact party name from full name of party
+     */
+
+    public AbstractParty getPartyFromFullName(String partyName) {
         CordaX500Name x500Name = CordaX500Name.parse(partyName);
         return connector.getRPCops().wellKnownPartyFromX500Name(x500Name);
     }
@@ -91,18 +96,10 @@ public abstract class CommonController {
         return party.iterator().next();
     }
 
-    @CrossOrigin
-    @GetMapping("/greet")
-    public String greet() {
-        return "welcome";
-    }
 
-    @CrossOrigin
-    @GetMapping("greetMe")
-    public String greetMe() {
-        return "welcome Ajinkya";
-    }
-
+    /**
+     * @return It returns the node balance
+     */
 
     @CrossOrigin
     @GetMapping("getNodeCashBalance")
@@ -111,22 +108,12 @@ public abstract class CommonController {
     }
 
 
-    protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
-                                       AbstractParty wesParty, Amount<Currency> amount, AbstractParty receivingParty) {
-
-        return new PRState( prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
-                prData.getCourseDuration(), prData.getUniversity(), prData.getEmail(),
-                prStatus, consultantParty, wesParty, amount, receivingParty);
-
-    }
-
-    protected PRState convertToPRStateForUpdate(PRState previousPRState, PRStatus prStatus, PRBO prbo) {
-
-        return new PRState(previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getCourseName(),
-                previousPRState.getCourseDuration(), previousPRState.getUniversity(), previousPRState.getWesReferenceNumber(),
-                previousPRState.getEmail(), prStatus, previousPRState.getConsultantParty(),
-                previousPRState.getWesParty(), previousPRState.getAmount());
-    }
+    /**
+     * @param pageNumber  is parameter which defaults to 1
+     * @param stateStatus is parameter which helps to return UNCONSUMED states
+     * @return It returns the UNCONSUMED states
+     * @throws JsonProcessingException
+     */
 
     @CrossOrigin
     @GetMapping("/getAllAcademicFormRequest/{pageNumber}")
@@ -148,13 +135,18 @@ public abstract class CommonController {
             outPutStateList = PRControllerHelper.createOutputWithHash(requestStates.getStates());
 
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body
-                    (mapper.writeValueAsString(outPutStateList.stream()
-                            .map(e -> e.getState().getData())
-                            .collect(Collectors.toList())));
+                    (mapper.writeValueAsString(outPutStateList));
 
         } else
             return ResponseEntity.noContent().build();
     }
+
+    /**
+     * @param id         is a UUID which helps to query the state from vault
+     * @param pageNumber is parameter which defaults to 1
+     * @return It returns history of the state according to UUID provided
+     * @throws JsonProcessingException
+     */
 
     @CrossOrigin
     @GetMapping("/getAllAcademicFormHistory/{id}")
@@ -207,7 +199,26 @@ public abstract class CommonController {
                 requestFormBO.getUniversityName(), requestFormBO.getStudentName(), requestFormBO.getDegreeName(),
                 requestFormBO.getDuration(), requestFormBO.getUniversityAddress(),
                 requestFormBO.getWESAddress(), false, requestFormBO.getComments(),
-                wesParty, consultantParty, universityParty, requestStatus);
+                wesParty, consultantParty, universityParty, requestStatus,requestFormBO.getRollNumber());
     }
+
+
+    protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
+                                       AbstractParty wesParty, Amount<Currency> amount, AbstractParty receivingParty) {
+
+        return new PRState(prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
+                prData.getCourseDuration(), prData.getUniversity(), prData.getEmail(),
+                prStatus, consultantParty, wesParty, amount, receivingParty);
+
+    }
+
+    protected PRState convertToPRStateForUpdate(PRState previousPRState, PRStatus prStatus, PRBO prbo) {
+
+        return new PRState(previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getCourseName(),
+                previousPRState.getCourseDuration(), previousPRState.getUniversity(), previousPRState.getWesReferenceNumber(),
+                previousPRState.getEmail(), prStatus, previousPRState.getConsultantParty(),
+                previousPRState.getWesParty(), previousPRState.getAmount());
+    }
+
 
 }

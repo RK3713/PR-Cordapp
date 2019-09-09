@@ -1,5 +1,9 @@
 package com.pr.server.common;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 public class ServerConstant {
     public static final String CREATE_COMMAND = "CREATE";
     public static final String UPDATE_COMMAND = "UPDATE";

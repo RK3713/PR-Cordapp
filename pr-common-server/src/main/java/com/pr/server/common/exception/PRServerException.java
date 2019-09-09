@@ -3,6 +3,10 @@ package com.pr.server.common.exception;
 
 import net.corda.core.serialization.CordaSerializable;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public class PRServerException extends RuntimeException {
     public PRServerException() {

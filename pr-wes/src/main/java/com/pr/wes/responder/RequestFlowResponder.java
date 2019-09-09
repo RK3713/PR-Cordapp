@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @InitiatedBy(RequestFormFlow.class)
 public class RequestFlowResponder extends FlowLogic<SignedTransaction> {
     private FlowSession counterpartySession;

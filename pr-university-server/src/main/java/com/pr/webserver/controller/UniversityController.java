@@ -23,8 +23,9 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Define your API endpoints here.
+ * @author Ajinkya Pande & Rishi Kundu
  */
+
 @RestController
 @RequestMapping("/university") // The paths for HTTP requests are relative to this base path.
 @CrossOrigin
@@ -34,16 +35,17 @@ public class UniversityController extends CommonController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/templateendpoint", produces = "text/plain")
-    private String templateendpoint() {
-        return "Define an endpoint here.";
+    @GetMapping(value = "/hello", produces = "text/plain")
+    private String uniName() {
+        return "Hello University";
     }
 
-    @CrossOrigin
-    @GetMapping(value = "/name", produces = "text/plain")
-    private String uniName() {
-        return "Pune University";
-    }
+    /**
+     *
+     * @param requestId is a UUID which helps to query the state from vault
+     * @param requestStatus is a parameter to change request status (APPLICATION_READY_FOR_WES_VERIFICATION etc.)
+     * @return It returns status whether Transaction is successful or not
+     */
 
     @CrossOrigin
     @PostMapping("TranscriptDetailsReadyForWES/{requestId}")
@@ -85,18 +87,26 @@ public class UniversityController extends CommonController {
 
     }
 
+    /***
+     *
+     * @param requestId is a UUID which helps to query the state from vault
+     * @param studentInfoBO is a json object which we provide as an input to our post api
+     * @param requestStatus is a parameter to change request status (ADDED_TRANSCRIPT_DETAILS etc.)
+     * @return It returns status whether Transcript details are added or not
+     */
+
     @CrossOrigin
     @PostMapping("addTranscriptDetails/{requestId}")
     public ResponseEntity addTranscriptDetails(@PathVariable("requestId") String requestId,
                                                @RequestBody StudentInfoBO studentInfoBO,
                                                @RequestParam(value = "requestStatus", required = false,
-                                                       defaultValue = "APPLICATION_READY_FOR_WES_VERIFICATION") String requestStatus) {
+                                                       defaultValue = "ADDED_TRANSCRIPT_DETAILS") String requestStatus) {
 
         RequestFormContract.Commands contractCommand;
         SignedTransaction signedTransaction;
 
         if (StringUtils.isEmpty(requestId)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RequestId! is missing. Please enter a valid booking Id.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RequestId! is missing. Please enter a valid Id.");
         }
 
         contractCommand = new RequestFormContract.Commands.UPDATE();
