@@ -6,7 +6,6 @@ import com.pr.common.data.RequestFlowData;
 import com.pr.consultant.initiator.ConsultantInitiator;
 import com.pr.consultant.initiator.RequestFlowInitiator;
 import com.pr.common.exception.PRException;
-import com.pr.consultant.ConsultantInitiator;
 import com.pr.contract.state.schema.contracts.PRContract;
 import com.pr.contract.state.schema.states.PRState;
 import com.pr.contract.state.schema.states.PRStatus;
