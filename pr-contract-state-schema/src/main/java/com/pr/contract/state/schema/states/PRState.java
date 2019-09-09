@@ -3,6 +3,7 @@ package com.pr.contract.state.schema.states;
 
 import com.pr.contract.state.schema.contracts.PRContract;
 import com.pr.contract.state.schema.schema.PRSchemaV1;
+import net.corda.core.contracts.Amount;
 import net.corda.core.contracts.BelongsToContract;
 import net.corda.core.contracts.LinearState;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -15,7 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.List;
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 // *********
 // * State *
@@ -33,7 +39,8 @@ public class PRState implements LinearState, QueryableState {
     private PRStatus prStatus;
     private AbstractParty consultantParty;
     private AbstractParty wesParty;
-    private AbstractParty universityParty;
+    private Amount<Currency> amount;
+
 
 
     public String getFirstName() {
@@ -68,6 +75,9 @@ public class PRState implements LinearState, QueryableState {
         return prStatus;
     }
 
+    public Amount<Currency> getAmount() {
+        return amount;
+    }
 
 
     public AbstractParty getConsultantParty() {
@@ -78,12 +88,10 @@ public class PRState implements LinearState, QueryableState {
         return wesParty;
     }
 
-    public AbstractParty getUniversityParty() {
-        return universityParty;
-    }
+
 
     @ConstructorForDeserialization
-    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
@@ -94,12 +102,12 @@ public class PRState implements LinearState, QueryableState {
         this.prStatus = prStatus;
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
-        this.universityParty = universityParty;
+        this.amount = amount;
     }
 
 
 
-    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, AbstractParty universityParty) {
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount,AbstractParty receivingParty) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
@@ -110,7 +118,7 @@ public class PRState implements LinearState, QueryableState {
         this.prStatus = prStatus;
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
-        this.universityParty = universityParty;
+        this.amount = amount;
     }
 
 

@@ -17,6 +17,10 @@ import java.util.stream.Collectors;
 import static net.corda.core.contracts.ContractsDSL.requireSingleCommand;
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 // ************
 // * Contract *
 // ************
@@ -41,6 +45,8 @@ public class PRContract implements Contract {
 
 
     }
+
+
 
     private Set<PublicKey> keysFromParticipants(PRState studentState){
         return studentState
@@ -76,6 +82,19 @@ public class PRContract implements Contract {
         });
     }
 
+    private void verifyTransfer(LedgerTransaction tx, Set<PublicKey> setOfSigners) {
+
+        requireThat(req -> {
+            req.using("No inputs should be consumed when Transferring.",tx.getInputs().isEmpty());
+            req.using("only one Transfer state should be created.",tx.getOutputs().size()==1);
+
+            PRState prState = (PRState) tx.getOutputStates().get(0);
+            req.using("Signers must be part of participants",setOfSigners.equals(keysFromParticipants(prState)));
+
+            return null;
+        } );
+
+    }
 
     // Used to indicate the transaction's intent.
     public interface Commands extends CommandData {

@@ -106,6 +106,7 @@ dependencies {
     cordapp project(":pr-consultant")
     cordapp project(":pr-university")
     cordapp project(":pr-wes")
+    cordapp "$corda_release_group:corda-finance:3.3-corda"
 }
 
 
@@ -121,6 +122,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             deploy = false
         }
         cordapp project(':pr-contract-state-schema')
+
     }
 
     node {
@@ -132,14 +134,6 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             adminAddress("localhost:10043")
         }
         extraConfig = ['h2Settings.address' : 'localhost:12347']
-//        extraConfig = [
-//                devMode : false
-//        ]
-//        custom = {
-//            jvmArgs= [ '-Xmx1G' ]
-//        }
-
-
         rpcUsers = [[user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
     node {
@@ -149,15 +143,12 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             address("localhost:10006")
             adminAddress("localhost:10046")
         }
-//        extraConfig = [
-//                devMode : false
-//        ]
-//
-//        custom = {
-//            jvmArgs= [ '-Xmx1G' ]
-//        }
+
+
         cordapp project(':pr-consultant')
         cordapp project(':pr-common')
+
+        cordapps = ["net.corda:corda-finance:3.3-corda"]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12346']
@@ -169,15 +160,11 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             address("localhost:10009")
             adminAddress("localhost:10049")
         }
-//        custom = {
-//            jvmArgs= [ '-Xmx1G', '-XX:+UseG1GC' ]
-//        }
-//        extraConfig = [
-//                devMode : false
-//        ]
 
         cordapp project(':pr-university')
         cordapp project(':pr-common')
+
+        cordapps = ["net.corda:corda-finance:3.3-corda"]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12345']
@@ -189,15 +176,10 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             address("localhost:10012")
             adminAddress("localhost:10052")
         }
-//        custom = {
-//            jvmArgs= [ '-Xmx1G', '-XX:+UseG1GC' ]
-//        }
-//        extraConfig = [
-//                devMode : false
-//        ]
 
         cordapp project(':pr-wes')
         cordapp project(':pr-common')
+        cordapps = ["net.corda:corda-finance:3.3-corda"]
 
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
         extraConfig = ['h2Settings.address' : 'localhost:12344']

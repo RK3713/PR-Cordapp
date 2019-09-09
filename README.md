@@ -2,17 +2,17 @@
   <img src="https://www.corda.net/wp-content/uploads/2016/11/fg005_corda_b.png" alt="Corda" width="500">
 </p>
 
-# CorDapp Template - Java
+# PR - CorDapp - Java
 
-Welcome to the Java CorDapp template. The CorDapp template is a stubbed-out CorDapp that you can use to bootstrap 
-your own CorDapps.
+Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Relocation
+process (PR - Process) 
 
-**This is the Java version of the CorDapp template. The Kotlin equivalent is 
-[here](https://github.com/corda/cordapp-template-kotlin/).**
 
 # Pre-Requisites
 
-See https://docs.corda.net/getting-set-up.html.
+ * Install Java 8
+ * Install IntelliJ IDEA
+ * Install Postman
 
 # Usage
 
@@ -21,6 +21,64 @@ See https://docs.corda.net/getting-set-up.html.
 We recommend editing your IntelliJ preferences so that you use the Gradle runner - this means that the quasar utils
 plugin will make sure that some flags (like ``-javaagent`` - see below) are
 set for you.
+
+# Running the PR - Cordapp
+
+### First Way:
+
+**Commands:**
+ * `gradlew clean build`
+ * `gradlew clean deployNodes`
+ 
+ Navigate to `/build/nodes` folder 
+   * `cd build/nodes`
+   * `runnodes.bat` 
+ 
+ **Running the Web-Servers:**
+ 
+ There are 3 web-servers for 3 nodes. Open separate consoles for each web-server.
+ 
+ * `gradlew runConsultantServer`
+ * `gradlew runWesServer`
+ * `gradlew runUniversityServer`
+ 
+ 
+ 
+### Second Way:
+ 
+ **Commands:**
+  * `gradlew clean build`
+  * `gradlew clean deployNodes`
+  * `gradlew createServer`
+  
+Navigate to `/build/nodes` folder 
+   * `cd build/nodes`
+   * `runnodes.bat`
+   * `runserver.bat`
+   
+    "runserver.bat" file takes care of running all webservers.
+
+    
+ 
+ **Running API's:**
+ 
+ Hit POST api from Consultant to Wes. Use prRequest.json in json folder as input.
+ * http://localhost:50020/consultant/
+ 
+ Hit GET api from Consultant to check all pr requests.
+ * http://localhost:50020/consultant/
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+
+
 
 To switch to using the Gradle runner:
 
@@ -34,9 +92,9 @@ If you would prefer to use the built in IntelliJ JUnit test runner, you can run 
 copy your quasar JAR file to the lib directory. You will then need to specify ``-javaagent:lib/quasar.jar``
 and set the run directory to the project root directory for each test.
 
-## Running the nodes
 
-See https://docs.corda.net/tutorial-cordapp.html#running-the-example-cordapp.
+
+
 
 ## Interacting with the nodes
 
@@ -138,5 +196,8 @@ You should extend this template as follows:
 * Add your own flow definitions under `workflows/src/main/java/`
 * Extend or replace the client and webserver under `clients/src/main/java/`
 
-For a guided example of how to extend this template, see the Hello, World! tutorial 
-[here](https://docs.corda.net/hello-world-introduction.html).
+### Developers:
+* [Rishi Kundu](https://www.linkedin.com/in/rishi-kundu-1990/)
+* [Ajinkya Pande](https://www.linkedin.com/in/ajinkya-pande-013ab5106/)
+
+##### Please feel free to raise a pull request.

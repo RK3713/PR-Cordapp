@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 // ******************
 // * Responder flow *
 // ******************
@@ -39,7 +43,7 @@ public class ConsultantResponder extends FlowLogic<SignedTransaction> {
             protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
                 requireThat(require -> {
                     ContractState output = stx.getTx().getOutputs().get(0).getData();
-                    require.using("This must be an PR State.", output instanceof PRState);
+                    require.using("This must be the PR State.", output instanceof PRState);
                     return null;
                 });
 

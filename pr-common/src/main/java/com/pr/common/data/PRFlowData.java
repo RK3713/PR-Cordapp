@@ -5,6 +5,10 @@ import com.pr.contract.state.schema.states.PRState;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.serialization.CordaSerializable;
 
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
+
 @CordaSerializable
 public class PRFlowData {
     private PRState newPRState;

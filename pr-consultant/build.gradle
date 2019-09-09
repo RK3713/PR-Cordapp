@@ -53,6 +53,9 @@ dependencies {
     cordaCompile "net.corda:corda-rpc:$corda_release_version"
     cordaCompile "net.corda:corda-node-api:$corda_release_version"
 
+    cordaCompile group: 'net.corda', name: 'corda-finance', version: '3.3-corda'
+
+
     // CorDapp dependencies.
     cordapp project(":pr-common")
     cordapp project(":pr-contract-state-schema")

@@ -7,23 +7,29 @@ import com.pr.common.flow.PRFlow;
 import com.pr.common.helper.PRFlowHelper;
 import com.pr.contract.state.schema.contracts.PRContract;
 import com.pr.contract.state.schema.states.PRState;
-import net.corda.core.contracts.Command;
-import net.corda.core.contracts.StateAndContract;
-import net.corda.core.contracts.StateAndRef;
+import com.pr.contract.state.schema.states.PRStatus;
+import net.corda.core.contracts.*;
 import net.corda.core.flows.*;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import net.corda.core.utilities.ProgressTracker;
+import net.corda.finance.flows.CashPaymentFlow;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.Security;
+import java.util.Currency;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+/**
+ * @author Ajinkya Pande & Rishi Kundu
+ */
 
 // ******************
 // * Initiator flow *
@@ -94,6 +100,9 @@ public class ConsultantInitiator extends PRFlow {
     @Override
     public SignedTransaction call() throws FlowException {
         // Initiator flow logic goes here.
+
+        TransactionBuilder txBuilder = null;
+
         progressTracker.setCurrentStep(INITIALISING);
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
@@ -102,8 +111,15 @@ public class ConsultantInitiator extends PRFlow {
 
         progressTracker.setCurrentStep(BUILDING);
         validateTxCommand(command);
-        TransactionBuilder txBuilder = new TransactionBuilder(notary)
-                .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID),txCommand);
+
+
+        if (command instanceof PRContract.Commands.CREATE){
+            txBuilder = new TransactionBuilder(notary)
+                    .withItems(new StateAndContract(prState, PRContract.PR_CONTRACT_ID),txCommand);
+        }else {
+            txBuilder = new TransactionBuilder(notary)
+                    .withItems(new StateAndContract(prState,PRContract.PR_CONTRACT_ID),txCommand,previousPRState);
+        }
 
         txBuilder.verify(getServiceHub());
 
@@ -129,7 +145,13 @@ public class ConsultantInitiator extends PRFlow {
         progressTracker.setCurrentStep(FINALISING);
         SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction,flowSessions, FINALISING.childProgressTracker()));
 
+        if (prState.getPrStatus().equals(PRStatus.APPLICATION_SUBMITTED))
+            subFlow(new CashPaymentFlow(prState.getAmount(), (Party) prState.getWesParty()));
+
+
         return fullySignedTxFinal;
+
+
     }
 
     @NotNull
@@ -140,4 +162,8 @@ public class ConsultantInitiator extends PRFlow {
         else
             throw new IllegalArgumentException("Unidentifiable command!");
     }
+
+
+
+
 }
