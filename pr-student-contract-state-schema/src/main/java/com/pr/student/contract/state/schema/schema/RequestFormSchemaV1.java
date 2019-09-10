@@ -25,10 +25,8 @@ public class RequestFormSchemaV1 extends MappedSchema {
     @Table(name = "academic_wes_request_form")
     public static class PersistentRequestForm extends PersistentState {
 
-        @Column(name = "firstName")
-        private String firstName;
-        @Column(name = "lastName")
-        private String lastName;
+        @Column(name = "studentName")
+        private String studentName;
         @Column(name = "rollNumber")
         private String rollNumber;
         @Column(name = "wes_reference_number")
@@ -36,18 +34,16 @@ public class RequestFormSchemaV1 extends MappedSchema {
 
 
         @ConstructorForDeserialization
-        public PersistentRequestForm(String firstName, String lastName, String rollNumber, String wes_reference_number) {
-            this.firstName = firstName;
-            this.lastName = lastName;
+        public PersistentRequestForm(String studentName, String rollNumber, String wes_reference_number) {
+            this.studentName = studentName;
             this.rollNumber = rollNumber;
             this.wes_reference_number = wes_reference_number;
         }
 
         public PersistentRequestForm(RequestForm other) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.rollNumber = rollNumber;
-            this.wes_reference_number = wes_reference_number;
+            this.studentName = other.getStudentName();
+            this.rollNumber = other.getRollNumber();
+            this.wes_reference_number = other.getWesReferenceNumber();
         }
 
 

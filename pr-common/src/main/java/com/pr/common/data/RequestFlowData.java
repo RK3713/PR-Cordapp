@@ -15,7 +15,10 @@ public class RequestFlowData {
     private StateAndRef<RequestForm> previousRequestState;
     private RequestFormContract.Commands command;
 
-    public RequestFlowData(RequestForm newRequestState, StateAndRef<RequestForm> previousRequestState, RequestFormContract.Commands command) {
+
+    public RequestFlowData(RequestForm newRequestState,
+                           StateAndRef<RequestForm> previousRequestState,
+                           RequestFormContract.Commands command) {
         this.newRequestState = newRequestState;
         this.previousRequestState = previousRequestState;
         this.command = command;

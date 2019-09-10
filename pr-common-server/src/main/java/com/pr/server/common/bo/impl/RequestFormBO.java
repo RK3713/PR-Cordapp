@@ -3,11 +3,13 @@ package com.pr.server.common.bo.impl;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.pr.server.common.bo.BusinessObject;
 import com.pr.server.common.deserializer.RequestBODeserializer;
+import net.corda.core.serialization.CordaSerializable;
 
 /**
  * @author Ajinkya Pande & Rishi Kundu
  */
 
+@CordaSerializable
 @JsonDeserialize(using = RequestBODeserializer.class)
 public class RequestFormBO implements BusinessObject {
 
@@ -23,7 +25,7 @@ public class RequestFormBO implements BusinessObject {
     private String WESAddress;
     private Boolean isApproved;
     private String comments;
-    private StudentInfoBO studentInfoBO;
+    //private StudentInfoBO studentInfoBO;
     private String wesParty;
     private String universityParty;
     private String consultantParty;
@@ -52,14 +54,14 @@ public class RequestFormBO implements BusinessObject {
         this.consultantParty = consultantParty;
     }
 
-    public StudentInfoBO getStudentInfoBO() {
+   /* public StudentInfoBO getStudentInfoBO() {
         return studentInfoBO;
     }
 
     public void setStudentInfoBO(StudentInfoBO studentInfoBO) {
         this.studentInfoBO = studentInfoBO;
     }
-
+*/
     public Boolean getWESRequested() {
         return isWESRequested;
     }

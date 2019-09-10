@@ -132,13 +132,17 @@ public abstract class CommonController {
             requestStates.getStates().forEach(e -> logger.debug(e.getState().getData().toString()));
         }
         if (!requestStates.getStates().isEmpty()) {
+            logger.info(requestStates.getStates().get(0).getState().getData().getLinearId().toString());
             outPutStateList = PRControllerHelper.createOutputWithHash(requestStates.getStates());
 
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body
-                    (mapper.writeValueAsString(outPutStateList));
+                    (mapper.writeValueAsString(outPutStateList.stream()
+                            .map(e -> e.getState().getData())
+                            .collect(Collectors.toList())));
 
-        } else
+        } else {
             return ResponseEntity.noContent().build();
+        }
     }
 
     /**
@@ -194,12 +198,9 @@ public abstract class CommonController {
                                                     AbstractParty wesParty, AbstractParty universityParty,
                                                     RequestStatus requestStatus) {
 
-        return new RequestForm(new UniqueIdentifier(), requestFormBO.getWESRequested(),
-                requestFormBO.getTranscriptRequested(), requestFormBO.getWESReferenceNumber(),
-                requestFormBO.getUniversityName(), requestFormBO.getStudentName(), requestFormBO.getDegreeName(),
-                requestFormBO.getDuration(), requestFormBO.getUniversityAddress(),
-                requestFormBO.getWESAddress(), false, requestFormBO.getComments(),
-                wesParty, consultantParty, universityParty, requestStatus,requestFormBO.getRollNumber());
+        return new RequestForm(new UniqueIdentifier(),requestFormBO.getWESReferenceNumber(),requestFormBO.getUniversityName(),
+                requestFormBO.getStudentName(),requestFormBO.getDegreeName(),requestFormBO.getUniversityAddress(),
+                wesParty,consultantParty,universityParty,requestStatus,requestFormBO.getRollNumber());
     }
 
 
