@@ -171,7 +171,7 @@ public class UniversityController extends CommonController {
             logger.info(transcript.toString());
         }
 
-        StudentInfoState studentInfoState = new StudentInfoState(studentInfoBO.getRollNumber(),
+        StudentInfoState studentInfoState = new StudentInfoState(previousRequest.get(0).getState().getData().getRollNumber(),
                 studentInfoBO.getCourseDuration(), studentInfoBO.getDegreeStatus(), degreeDetails,transcript,university);
 
         RequestForm newRequestFormState = new RequestForm(previousRequest.get(0).getState().getData(), studentInfoState,RequestStatus.ADDED_TRANSCRIPT_DETAILS);
