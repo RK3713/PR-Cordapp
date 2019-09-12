@@ -7,7 +7,10 @@ import com.pr.contract.state.schema.states.PRState;
 import com.pr.contract.state.schema.states.PRStatus;
 import com.pr.server.common.bo.impl.PRBO;
 import com.pr.server.common.controller.CommonController;
+import com.pr.server.common.exception.PRServerException;
 import com.pr.server.common.helper.PRControllerHelper;
+import com.pr.student.contract.state.schema.state.RequestForm;
+import com.pr.student.contract.state.schema.state.RequestStatus;
 import com.pr.wes.initiator.WesInitiator;
 import net.corda.core.contracts.Amount;
 import net.corda.core.contracts.StateAndRef;
@@ -67,16 +70,31 @@ public class WesController extends CommonController {
             }
 
             PRContract.Commands command = new PRContract.Commands.RequestApproval();
+            PRStatus prStatus = null;
 
             List<StateAndRef<PRState>> previousPrState = PRControllerHelper.getPrStateFromRequestId(requestId,connector.getRPCops());
+
+            List<StateAndRef<RequestForm>> previousRequestFormState = PRControllerHelper.getRequestFormStateFromRequestId(requestId,connector.getRPCops());
+
 
             if (previousPrState == null || previousPrState.isEmpty()) {
                 throw new PRException("PR Request with id: " + requestId + " doesn't exist please verify and try again!");
             }
 
+            if (previousPrState.get(0).getState().getData().getPrStatus().equals(PRStatus.APPLICATION_SUBMITTED))
+                prStatus = PRStatus.APPLICATION_ACKNOWLEDGEMENT;
+            else if (previousPrState.get(0).getState().getData().getPrStatus().equals(PRStatus.APPLICATION_ACKNOWLEDGEMENT)
+                    && previousRequestFormState.get(0).getState().getData().getRequestStatus().equals(RequestStatus.APPLICATION_READY_FOR_WES_VERIFICATION))
+                prStatus = PRStatus.DOCUMENT_RECEIVED;
+            else if (previousPrState.get(0).getState().getData().getPrStatus().equals(PRStatus.DOCUMENT_RECEIVED))
+                prStatus = PRStatus.DOCUMENT_REVIEWED;
+            else if (previousPrState.get(0).getState().getData().getPrStatus().equals(PRStatus.DOCUMENT_REVIEWED))
+                prStatus = PRStatus.ECA_REPORT_CREATED;
+            else
+                throw new PRServerException("Invalid PR status! Please check.");
 
             try {
-                PRState newPRState = convertToPRStateForUpdate(previousPrState.get(0).getState().getData(), PRStatus.APPLICATION_ACKNOWLEDGEMENT,prbo);
+                PRState newPRState = convertToPRStateForUpdate(previousPrState.get(0).getState().getData(), prStatus,prbo);
                 FlowHandle<SignedTransaction> signedTransactionFlowHandle = connector.getRPCops().startFlowDynamic(
                         WesInitiator.class,
                         new PRFlowData(newPRState, previousPrState.get(0),command));

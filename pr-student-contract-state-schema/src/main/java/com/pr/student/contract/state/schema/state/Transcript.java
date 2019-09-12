@@ -20,13 +20,13 @@ public class Transcript {
     private List<Semester> semester;
 
     @ConstructorForDeserialization
-    public Transcript(String rollNumber, String name, String universityName, String dateOfCompletion, String degreeName, Boolean isPass, List<Semester> semester) {
+    public Transcript(String rollNumber, String name, String universityName, String degreeName, List<Semester> semester) {
         this.rollNumber = rollNumber;
         this.name = name;
         this.universityName = universityName;
-        this.dateOfCompletion = dateOfCompletion;
+        //this.dateOfCompletion = dateOfCompletion;
         this.degreeName = degreeName;
-        this.isPass = isPass;
+        //this.isPass = isPass;
         this.semester = semester;
     }
 
@@ -56,5 +56,16 @@ public class Transcript {
 
     public List<Semester> getSemester() {
         return semester;
+    }
+
+    @Override
+    public String toString() {
+        return "Transcript{" +
+                "rollNumber='" + rollNumber + '\'' +
+                ", name='" + name + '\'' +
+                ", universityName='" + universityName + '\'' +
+                ", degreeName='" + degreeName + '\'' +
+                ", semester=" + semester +
+                '}';
     }
 }

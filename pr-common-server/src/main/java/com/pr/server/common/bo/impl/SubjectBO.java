@@ -9,7 +9,7 @@ import com.pr.server.common.bo.BusinessObject;
 public class SubjectBO implements BusinessObject {
     private String subjectName;
     private Double marksObtained;
-    private Boolean isPassed;
+    private String isPassed;
 
     public String getSubjectName() {
         return subjectName;
@@ -27,11 +27,11 @@ public class SubjectBO implements BusinessObject {
         this.marksObtained = marksObtained;
     }
 
-    public Boolean getPassed() {
+    public String getPassed() {
         return isPassed;
     }
 
-    public void setPassed(Boolean passed) {
+    public void setPassed(String passed) {
         isPassed = passed;
     }
 

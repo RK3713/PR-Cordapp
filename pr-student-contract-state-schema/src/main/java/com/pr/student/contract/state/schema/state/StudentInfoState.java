@@ -68,13 +68,13 @@ public class StudentInfoState {
 
 
     @ConstructorForDeserialization
-    public StudentInfoState(String rollNumber, String WESReferenceNumber, String firstName, String lastName,
+    public StudentInfoState(String rollNumber,
                             String courseDuration, String degreeStatus, DegreeDetails degreeDetails,
                             Transcript transcript, University university) {
         this.rollNumber = rollNumber;
-        this.WESReferenceNumber = WESReferenceNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        //this.WESReferenceNumber = WESReferenceNumber;
+        /*this.firstName = firstName;
+        this.lastName = lastName;*/
         this.courseDuration = courseDuration;
         this.degreeStatus = degreeStatus;
         this.degreeDetails = degreeDetails;

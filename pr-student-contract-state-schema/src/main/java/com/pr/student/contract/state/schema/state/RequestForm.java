@@ -213,7 +213,7 @@ public class RequestForm implements LinearState, QueryableState {
         this.studentInfoState = other.studentInfoState;
     }
 
-    public RequestForm(RequestForm other,StudentInfoState studentInfoState) {
+    public RequestForm(RequestForm other,StudentInfoState studentInfoState,RequestStatus requestStatus) {
         /*this.wesRequested = other.wesRequested;
         this.transcriptRequested = other.transcriptRequested;*/
         this.wesReferenceNumber = other.wesReferenceNumber;
@@ -231,7 +231,7 @@ public class RequestForm implements LinearState, QueryableState {
         this.wesParty = other.wesParty;
         this.consultantParty = other.consultantParty;
         this.universityParty = other.universityParty;
-        this.requestStatus = other.requestStatus;
+        this.requestStatus = requestStatus;
         this.studentInfoState = studentInfoState;
     }
 

@@ -11,13 +11,13 @@ import net.corda.core.serialization.CordaSerializable;
 public class Subjects {
     private String subjectName;
     private Double marksObtained;
-    private Boolean isPassed;
+    private String isPassed;
 
     @ConstructorForDeserialization
-    public Subjects(String subjectName, Double marksObtained, Boolean isPassed) {
+    public Subjects(String subjectName, Double marksObtained) {
         this.subjectName = subjectName;
         this.marksObtained = marksObtained;
-        this.isPassed = isPassed;
+        //this.isPassed = isPassed;
     }
 
     public String getSubjectName() {
@@ -28,7 +28,15 @@ public class Subjects {
         return marksObtained;
     }
 
-    public Boolean getPassed() {
+    public String getPassed() {
         return isPassed;
+    }
+
+    @Override
+    public String toString() {
+        return "Subjects{" +
+                "subjectName='" + subjectName + '\'' +
+                ", marksObtained=" + marksObtained +
+                '}';
     }
 }

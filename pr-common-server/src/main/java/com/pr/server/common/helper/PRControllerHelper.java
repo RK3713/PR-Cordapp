@@ -3,6 +3,7 @@ package com.pr.server.common.helper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.pr.contract.state.schema.schema.PRSchemaV1;
 import com.pr.contract.state.schema.states.PRState;
+import com.pr.student.contract.state.schema.schema.RequestFormSchemaV1;
 import com.pr.student.contract.state.schema.state.RequestForm;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -53,6 +54,35 @@ public class PRControllerHelper {
         do {
             pageSpecification = new PageSpecification(pageNum, DEFAULT_PAGE_SIZE);
             results = rpcOps.vaultQueryByWithPagingSpec(PRState.class, criteria, pageSpecification);
+            states.addAll(results.getStates());
+            pageNum++;
+        } while ((pageSpecification.getPageSize() * (pageNum)) <= results.getTotalStatesAvailable());
+        if (results.getStates().size() > 0) {
+            return results.getStates();
+
+        } else {
+            return new ArrayList<>();
+        }
+
+    }
+
+    public static List<StateAndRef<RequestForm>> getRequestFormStateFromRequestId(String requestId, CordaRPCOps rpcOps)
+            throws NoSuchFieldException {
+
+
+        QueryCriteria generalCriteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
+        Field reqIdField = RequestFormSchemaV1.PersistentRequestForm.class.getDeclaredField("wes_reference_number");
+
+        CriteriaExpression reqIdIndex = Builder.equal(reqIdField, requestId);
+        QueryCriteria customCriteria = new QueryCriteria.VaultCustomQueryCriteria<>(reqIdIndex);
+        QueryCriteria criteria = generalCriteria.and(customCriteria);
+        PageSpecification pageSpecification;
+        Vault.Page<RequestForm> results;
+        List<StateAndRef<RequestForm>> states = new ArrayList<>();
+        Integer pageNum = DEFAULT_PAGE_NUM;
+        do {
+            pageSpecification = new PageSpecification(pageNum, DEFAULT_PAGE_SIZE);
+            results = rpcOps.vaultQueryByWithPagingSpec(RequestForm.class, criteria, pageSpecification);
             states.addAll(results.getStates());
             pageNum++;
         } while ((pageSpecification.getPageSize() * (pageNum)) <= results.getTotalStatesAvailable());

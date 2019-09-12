@@ -32,7 +32,8 @@ import java.util.stream.Collectors;
 // ******************
 // * Initiator flow *
 // ******************
-@InitiatingFlow
+
+@StartableByService
 @StartableByRPC
 public class RequestFlowResponseInitiator extends RequestFormFlow {
     private static final Logger logger = LoggerFactory.getLogger(RequestFlowResponseInitiator.class);

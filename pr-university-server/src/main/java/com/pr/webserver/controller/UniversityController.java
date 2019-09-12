@@ -104,6 +104,15 @@ public class UniversityController extends CommonController {
 
         RequestFormContract.Commands contractCommand;
         SignedTransaction signedTransaction;
+        DegreeDetailsBO degreeDetailsBO = null;
+        List<Semester> semesterList = new ArrayList<>();
+        List<SemesterBO> semesterBOList = new ArrayList<>();
+        DegreeDetails degreeDetails=null;
+        University university=null;
+        UniversityBO universityBO = null;
+        TranscriptBO transcriptBO = null;
+        Transcript transcript = null;
+        Semester semester = null;
 
         if (StringUtils.isEmpty(requestId)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RequestId! is missing. Please enter a valid Id.");
@@ -121,40 +130,51 @@ public class UniversityController extends CommonController {
             throw new IllegalArgumentException("Invalid request status, Expected Previous Status : " + RequestStatus.APPLICATION_SUBMITTED);
         }
 
-        DegreeDetailsBO degreeDetailsBO = studentInfoBO.getDegreeDetailsBO();
-        DegreeDetails degreeDetails = new DegreeDetails(degreeDetailsBO.getDegreeName(),
-                degreeDetailsBO.getUniversityName(), degreeDetailsBO.getCompletionStatus(),
-                degreeDetailsBO.getPassingYear(), degreeDetailsBO.getPassingDivision(),
-                degreeDetailsBO.getFullName(), degreeDetailsBO.getFatherName(), degreeDetailsBO.getSpecializationField(),
-                degreeDetailsBO.getRollNumber());
-
-        UniversityBO universityBO = studentInfoBO.getUniversityBO();
-        University university = new University(universityBO.getUniversityName(), universityBO.getAddress(),
-                universityBO.getUniversityType(), universityBO.getContactNumber());
-
-        TranscriptBO transcriptBO = studentInfoBO.getTranscriptBO();
-        List<SemesterBO> semesterBOList = transcriptBO.getSemester();
-        List<Semester> semesterList = new ArrayList<>();
-        for (SemesterBO semesterBO : semesterBOList) {
-            List<Subjects> subjectsList = new ArrayList<>();
-            for (SubjectBO subjectBO : semesterBO.getSubbjectsList()) {
-                Subjects subjects = new Subjects(subjectBO.getSubjectName(), subjectBO.getMarksObtained(), subjectBO.getPassed());
-                subjectsList.add(subjects);
-            }
-            Semester semester = new Semester(semesterBO.getSemesterNumber(), subjectsList, semesterBO.getResultDeclaredOnDate());
-            semesterList.add(semester);
+        if (studentInfoBO.getDegreeDetailsBO()==null && studentInfoBO.getTranscriptBO()==null && studentInfoBO.getUniversityBO()==null){
+            throw new PRServerException("Please provide relevant student data. Please check.");
         }
-        Transcript transcript = new Transcript(transcriptBO.getRollNumber(),transcriptBO.getName(),
-                transcriptBO.getUniversityName(),transcriptBO.getDateOfCompletion(),transcriptBO.getDegreeName(),
-                transcriptBO.getPass(),semesterList);
 
+
+        if (studentInfoBO.getDegreeDetailsBO()!=null) {
+            degreeDetailsBO = studentInfoBO.getDegreeDetailsBO();
+            degreeDetails = new DegreeDetails(previousRequest.get(0).getState().getData().getDegreeName(),
+                    previousRequest.get(0).getState().getData().getUniversityName(), studentInfoBO.getDegreeStatus(),
+                    degreeDetailsBO.getPassingYear(), degreeDetailsBO.getPassingDivision(),
+                    degreeDetailsBO.getFullName(), degreeDetailsBO.getFatherName(), degreeDetailsBO.getSpecializationField(),
+                    previousRequest.get(0).getState().getData().getRollNumber());
+        }
+        if (studentInfoBO.getUniversityBO()!=null) {
+            universityBO = studentInfoBO.getUniversityBO();
+            university = new University(universityBO.getUniversityName(), universityBO.getAddress(),
+                    universityBO.getUniversityType(), universityBO.getContactNumber());
+        }
+
+        if (studentInfoBO.getTranscriptBO()!=null) {
+            transcriptBO = studentInfoBO.getTranscriptBO();
+            semesterBOList = transcriptBO.getSemester();
+
+            if (!semesterBOList.isEmpty()) {
+                for (SemesterBO semesterBO : semesterBOList) {
+                    List<Subjects> subjectsList = new ArrayList<>();
+                    for (SubjectBO subjectBO : semesterBO.getSubbjectsList()) {
+                        Subjects subjects = new Subjects(subjectBO.getSubjectName(), subjectBO.getMarksObtained());
+                        logger.info(subjects.toString());
+                        subjectsList.add(subjects);
+                    }
+                    semester = new Semester(semesterBO.getSemesterNumber(), subjectsList, semesterBO.getResultDeclaredOnDate());
+                    semesterList.add(semester);
+                }
+            }
+            transcript = new Transcript(previousRequest.get(0).getState().getData().getRollNumber(), previousRequest.get(0).getState().getData().getStudentName(),
+                    previousRequest.get(0).getState().getData().getUniversityName(), previousRequest.get(0).getState().getData().getDegreeName(),
+                    semesterList);
+            logger.info(transcript.toString());
+        }
 
         StudentInfoState studentInfoState = new StudentInfoState(studentInfoBO.getRollNumber(),
-                studentInfoBO.getWESReferenceNumber(), studentInfoBO.getFirstName(),
-                studentInfoBO.getLastName(), studentInfoBO.getCourseDuration(),
-                studentInfoBO.getDegreeStatus(), degreeDetails,transcript,university);
+                studentInfoBO.getCourseDuration(), studentInfoBO.getDegreeStatus(), degreeDetails,transcript,university);
 
-        RequestForm newRequestFormState = new RequestForm(previousRequest.get(0).getState().getData(), RequestStatus.APPLICATION_READY_FOR_WES_VERIFICATION);
+        RequestForm newRequestFormState = new RequestForm(previousRequest.get(0).getState().getData(), studentInfoState,RequestStatus.ADDED_TRANSCRIPT_DETAILS);
 
         try {
             FlowHandle<SignedTransaction> signedTransactionFlowHandle = connector.getRPCops().startFlowDynamic(RequestFlowResponseInitiator.class,
