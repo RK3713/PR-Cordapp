@@ -113,7 +113,7 @@ public class ConsultantController extends CommonController {
      */
 
     @CrossOrigin
-    @PutMapping("/")
+    @PutMapping("/cash")
     public ResponseEntity issueCash(@RequestParam("amount") Long amount, @RequestParam("currency") String currency) {
         // 1. Prepare issue request.
         final Amount<Currency> issueAmount = new Amount<>(amount * 100, Currency.getInstance(currency));
@@ -195,7 +195,7 @@ public class ConsultantController extends CommonController {
      */
 
     @CrossOrigin
-    @PostMapping("raiseAcademicFormRequest/{command}")
+    @PostMapping("transcript/{command}")
     public ResponseEntity raiseBookingRequest(@PathVariable("command") String command,
                                               @RequestBody RequestFormBO requestFormBO) {
         RequestFormContract.Commands contractCommand;
@@ -241,7 +241,7 @@ public class ConsultantController extends CommonController {
      */
 
     @CrossOrigin
-    @PostMapping("confirmTranscriptDetails/{requestId}")
+    @PutMapping("transcript/{requestId}")
     public ResponseEntity confirmTranscriptDetails(@PathVariable("requestId") String requestId,
                                                    @RequestParam(value = "requestStatus", required = false, defaultValue = "CONFIRMED") String requestStatus) {
         RequestFormContract.Commands contractCommand;

@@ -62,7 +62,7 @@ public class WesController extends CommonController {
 
 
     @CrossOrigin
-    @PutMapping("/response")
+    @PutMapping("/")
     public ResponseEntity respondToPrRequest(@RequestParam(value ="requestId",required = true) String requestId, @RequestBody PRBO prbo) throws Exception{
 
             if (StringUtils.isEmpty(requestId)) {
@@ -118,7 +118,7 @@ public class WesController extends CommonController {
 
     @CrossOrigin
     @GetMapping("/")
-    public ResponseEntity getPRRequestDetails(@RequestParam(value = "id", required = false) String id) throws Exception {
+    public ResponseEntity getPRRequestDetails(@PathVariable(value = "id", required = false) String id) throws Exception {
 
         if (!StringUtils.isEmpty(id)) {
             try {

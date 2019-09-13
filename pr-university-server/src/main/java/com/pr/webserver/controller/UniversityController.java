@@ -48,7 +48,7 @@ public class UniversityController extends CommonController {
      */
 
     @CrossOrigin
-    @PostMapping("TranscriptDetailsReadyForWES/{requestId}")
+    @PutMapping("transcript/{requestId}")
     public ResponseEntity TranscriptDetailsReadyForWES(@PathVariable("requestId") String requestId,
                                                        @RequestParam(value = "requestStatus", required = false,
                                                                defaultValue = "APPLICATION_READY_FOR_WES_VERIFICATION") String requestStatus) {
@@ -96,7 +96,7 @@ public class UniversityController extends CommonController {
      */
 
     @CrossOrigin
-    @PostMapping("addTranscriptDetails/{requestId}")
+    @PostMapping("transcript/{requestId}")
     public ResponseEntity addTranscriptDetails(@PathVariable("requestId") String requestId,
                                                @RequestBody StudentInfoBO studentInfoBO,
                                                @RequestParam(value = "requestStatus", required = false,

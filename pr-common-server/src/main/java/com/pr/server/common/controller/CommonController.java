@@ -102,7 +102,7 @@ public abstract class CommonController {
      */
 
     @CrossOrigin
-    @GetMapping("getNodeCashBalance")
+    @GetMapping("/cash")
     public Map<Currency, Amount<Currency>> nodeCashBalances() {
         return getCashBalances(connector.getRPCops());
     }
@@ -116,7 +116,7 @@ public abstract class CommonController {
      */
 
     @CrossOrigin
-    @GetMapping("/getAllAcademicFormRequest/{pageNumber}")
+    @GetMapping("/transcript/{pageNumber}")
     public ResponseEntity getAllAcademicFormRequest(@PathVariable("pageNumber") Integer pageNumber, @RequestParam(value = "stateStatus",
             required = false, defaultValue = "UNCONSUMED") String stateStatus) throws JsonProcessingException {
 
@@ -153,7 +153,7 @@ public abstract class CommonController {
      */
 
     @CrossOrigin
-    @GetMapping("/getAllAcademicFormHistory/{id}")
+    @GetMapping("/transcript/history/{id}")
     public ResponseEntity getAllAcademicFormHistory(@PathVariable("id") String id, @RequestParam(value = "pageNumber",
             required = false, defaultValue = "1") Integer pageNumber) throws JsonProcessingException {
 
