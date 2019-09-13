@@ -40,8 +40,11 @@ public class PRState implements LinearState, QueryableState {
     private AbstractParty consultantParty;
     private AbstractParty wesParty;
     private Amount<Currency> amount;
+    private ECAState ecaState;
 
-
+    public ECAState getEcaState() {
+        return ecaState;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -91,7 +94,9 @@ public class PRState implements LinearState, QueryableState {
 
 
     @ConstructorForDeserialization
-    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount) {
+    public PRState(String firstName, String lastName, String courseName, String courseDuration,
+                   String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus,
+                   AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
@@ -121,6 +126,20 @@ public class PRState implements LinearState, QueryableState {
         this.amount = amount;
     }
 
+    public PRState(PRState other , ECAState ecaState, PRStatus status) {
+        this.firstName = other.firstName;
+        this.lastName = other.lastName;
+        this.courseName = other.courseName;
+        this.courseDuration = other.courseDuration;
+        this.university = other.university;
+        this.wesReferenceNumber =other.wesReferenceNumber;
+        this.email = other.email;
+        this.prStatus = status;
+        this.consultantParty = other.consultantParty;
+        this.wesParty = other.wesParty;
+        this.amount = other.amount;
+        this.ecaState = ecaState;
+    }
 
 
 
