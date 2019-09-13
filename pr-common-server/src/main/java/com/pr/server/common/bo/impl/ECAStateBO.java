@@ -12,22 +12,22 @@ import net.corda.core.serialization.CordaSerializable;
 @CordaSerializable
 @JsonDeserialize(using = ECABODeserializer.class)
 public class ECAStateBO implements BusinessObject {
-    private String nameOnCrdential;
+    private String nameOnCredential;
     private String credentialAuth;
     private String country;
-    private String crdential;
+    private String credential;
     private String year;
     private String awardedBy;
     private String status;
     private String major;
     private String equivalency;
 
-    public String getNameOnCrdential() {
-        return nameOnCrdential;
+    public String getNameOnCredential() {
+        return nameOnCredential;
     }
 
-    public void setNameOnCrdential(String nameOnCrdential) {
-        this.nameOnCrdential = nameOnCrdential;
+    public void setNameOnCredential(String nameOnCredential) {
+        this.nameOnCredential = nameOnCredential;
     }
 
     public String getCredentialAuth() {
@@ -46,12 +46,12 @@ public class ECAStateBO implements BusinessObject {
         this.country = country;
     }
 
-    public String getCrdential() {
-        return crdential;
+    public String getCredential() {
+        return credential;
     }
 
-    public void setCrdential(String crdential) {
-        this.crdential = crdential;
+    public void setCredential(String credential) {
+        this.credential = credential;
     }
 
     public String getYear() {

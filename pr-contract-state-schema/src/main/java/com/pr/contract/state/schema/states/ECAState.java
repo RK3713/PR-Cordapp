@@ -5,18 +5,18 @@ import net.corda.core.serialization.CordaSerializable;
 
 @CordaSerializable
 public class ECAState {
-    private String nameOnCrdential;
+    private String nameOnCredential;
     private String credentialAuth;
     private String country;
-    private String crdential;
+    private String credential;
     private String year;
     private String awardedBy;
     private String status;
     private String major;
     private String equivalency;
 
-    public String getNameOnCrdential() {
-        return nameOnCrdential;
+    public String getNameOnCredential() {
+        return nameOnCredential;
     }
 
     public String getCredentialAuth() {
@@ -27,8 +27,8 @@ public class ECAState {
         return country;
     }
 
-    public String getCrdential() {
-        return crdential;
+    public String getCredential() {
+        return credential;
     }
 
     public String getYear() {
@@ -54,10 +54,10 @@ public class ECAState {
     @ConstructorForDeserialization
     public ECAState(String nameOnCrdential, String credentialAuth, String country, String crdential, String year,
                     String awardedBy, String status, String major, String equivalency) {
-        this.nameOnCrdential = nameOnCrdential;
+        this.nameOnCredential = nameOnCrdential;
         this.credentialAuth = credentialAuth;
         this.country = country;
-        this.crdential = crdential;
+        this.credential = crdential;
         this.year = year;
         this.awardedBy = awardedBy;
         this.status = status;
@@ -68,10 +68,10 @@ public class ECAState {
     @Override
     public String toString() {
         return "ECAState{" +
-                "nameOnCrdential='" + nameOnCrdential + '\'' +
+                "nameOnCrdential='" + nameOnCredential + '\'' +
                 ", credentialAuth='" + credentialAuth + '\'' +
                 ", country='" + country + '\'' +
-                ", crdential='" + crdential + '\'' +
+                ", crdential='" + credential + '\'' +
                 ", year='" + year + '\'' +
                 ", awardedBy='" + awardedBy + '\'' +
                 ", status='" + status + '\'' +

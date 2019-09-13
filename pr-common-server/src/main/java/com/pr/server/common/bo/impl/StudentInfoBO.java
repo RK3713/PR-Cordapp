@@ -21,7 +21,6 @@ public class StudentInfoBO implements BusinessObject {
     private TranscriptBO transcriptBO;
     private UniversityBO universityBO;
     private String status;
-    //private RequestFormBO requestFormBO;
 
     public String getRollNumber() {
         return rollNumber;
@@ -103,11 +102,4 @@ public class StudentInfoBO implements BusinessObject {
         this.status = status;
     }
 
-    /*public RequestFormBO getRequestFormBO() {
-        return requestFormBO;
-    }*/
-
-    /*public void setRequestFormBO(RequestFormBO requestFormBO) {
-        this.requestFormBO = requestFormBO;
-    }*/
 }

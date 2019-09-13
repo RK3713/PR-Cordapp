@@ -63,7 +63,7 @@ public class WesController extends CommonController {
 
     @CrossOrigin
     @PutMapping("/")
-    public ResponseEntity respondToPrRequest(@RequestParam(value ="requestId",required = true) String requestId, @RequestBody PRBO prbo) throws Exception{
+    public ResponseEntity respondToPrRequest(@PathVariable(value ="requestId",required = true) String requestId, @RequestBody PRBO prbo) throws Exception{
 
             if (StringUtils.isEmpty(requestId)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid requestId!");

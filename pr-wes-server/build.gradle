@@ -41,7 +41,7 @@ dependencies {
 task runWesServer(type: JavaExec, dependsOn: jar) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.pr.webserver.boot.BootWes'
-    args '--server.port=50040', '--config.rpc.host=localhost', '--config.rpc.port=10012', '--config.rpc.username=user1', '--config.rpc.password=test'
+    args '--server.port=8083', '--config.rpc.host=localhost', '--config.rpc.port=10012', '--config.rpc.username=user1', '--config.rpc.password=test'
 }
 
 bootJar() {
