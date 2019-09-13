@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 
 import com.google.common.collect.Sets;
+import com.pr.contract.state.schema.states.ECAState;
 import com.pr.contract.state.schema.states.PRState;
 import com.pr.contract.state.schema.states.PRStatus;
+import com.pr.server.common.bo.impl.ECAStateBO;
 import com.pr.server.common.bo.impl.PRBO;
 import com.pr.server.common.bo.impl.RequestFormBO;
 import com.pr.server.common.config.RPConnector;
@@ -219,6 +221,12 @@ public abstract class CommonController {
                 previousPRState.getCourseDuration(), previousPRState.getUniversity(), previousPRState.getWesReferenceNumber(),
                 previousPRState.getEmail(), prStatus, previousPRState.getConsultantParty(),
                 previousPRState.getWesParty(), previousPRState.getAmount());
+    }
+
+    protected ECAState convertToECAState(ECAStateBO ecaStateBO) {
+
+        return new ECAState(ecaStateBO.getNameOnCredential(),ecaStateBO.getCredentialAuth(),ecaStateBO.getCountry(),
+                ecaStateBO.getAwardedBy(),ecaStateBO.getYear(),ecaStateBO.getAwardedBy(),ecaStateBO.getStatus(),ecaStateBO.getMajor(),ecaStateBO.getEquivalency());
     }
 
 

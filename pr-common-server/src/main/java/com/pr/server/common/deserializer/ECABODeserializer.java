@@ -27,7 +27,6 @@ public class ECABODeserializer extends JsonDeserializer<ECAStateBO> {
         ObjectCodec oc = jp.getCodec();
         JsonNode node = oc.readTree(jp);
 
-
         ecaStateBO.setNameOnCredential(node.get("nameOnCredential") != null ? node.get("nameOnCredential").asText() : null);
         ecaStateBO.setCredentialAuth(node.get("credentialAuth") != null ? node.get("credentialAuth").asText() : null);
         ecaStateBO.setCountry(node.get("country") != null ? node.get("country").asText() : null);

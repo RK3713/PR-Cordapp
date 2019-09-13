@@ -141,7 +141,20 @@ public class PRState implements LinearState, QueryableState {
         this.ecaState = ecaState;
     }
 
-
+    public PRState(PRState other) {
+        this.firstName = other.firstName;
+        this.lastName = other.lastName;
+        this.courseName = other.courseName;
+        this.courseDuration = other.courseDuration;
+        this.university = other.university;
+        this.wesReferenceNumber =other.wesReferenceNumber;
+        this.email = other.email;
+        this.prStatus = other.prStatus;
+        this.consultantParty = other.consultantParty;
+        this.wesParty = other.wesParty;
+        this.amount = other.amount;
+        this.ecaState = other.ecaState;
+    }
 
 
     @NotNull
