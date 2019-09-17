@@ -90,7 +90,8 @@ public class ConsultantController extends CommonController {
         }
 
         // Creating state
-        PRState prState = convertToPRState(prData, PRStatus.APPLICATION_SUBMITTED, consultantParty, wesParty, amountToBeTransferred, wesParty);
+        PRState prState = convertToPRState(prData, PRStatus.APPLICATION_SUBMITTED, consultantParty, wesParty, amountToBeTransferred);
+        logger.info("PR State:" + prState.toString());
 
         try {
             FlowHandle<SignedTransaction> flowHandle = connector.getRPCops().startFlowDynamic

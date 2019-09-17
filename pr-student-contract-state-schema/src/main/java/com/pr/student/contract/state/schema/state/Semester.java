@@ -6,7 +6,7 @@ import net.corda.core.serialization.CordaSerializable;
 import java.util.List;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 @CordaSerializable
 public class Semester {

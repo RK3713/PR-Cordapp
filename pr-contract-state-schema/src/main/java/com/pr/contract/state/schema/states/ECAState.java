@@ -3,6 +3,9 @@ package com.pr.contract.state.schema.states;
 import net.corda.core.serialization.ConstructorForDeserialization;
 import net.corda.core.serialization.CordaSerializable;
 
+/**
+ * @author Rishi Kundu and Ajinkya Pande
+ */
 @CordaSerializable
 public class ECAState {
     private String nameOnCredential;
@@ -52,17 +55,29 @@ public class ECAState {
     }
 
     @ConstructorForDeserialization
-    public ECAState(String nameOnCrdential, String credentialAuth, String country, String crdential, String year,
+    public ECAState(String nameOnCredential, String credentialAuth, String country, String credential, String year,
                     String awardedBy, String status, String major, String equivalency) {
-        this.nameOnCredential = nameOnCrdential;
+        this.nameOnCredential = nameOnCredential;
         this.credentialAuth = credentialAuth;
         this.country = country;
-        this.credential = crdential;
+        this.credential = credential;
         this.year = year;
         this.awardedBy = awardedBy;
         this.status = status;
         this.major = major;
         this.equivalency = equivalency;
+    }
+
+    public ECAState(ECAState other) {
+        this.nameOnCredential = other.nameOnCredential;
+        this.credentialAuth = other.credentialAuth;
+        this.country = other.country;
+        this.credential = other.credential;
+        this.year = other.year;
+        this.awardedBy = other.awardedBy;
+        this.status = other.status;
+        this.major = other.major;
+        this.equivalency = other.equivalency;
     }
 
     @Override

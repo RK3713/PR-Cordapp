@@ -19,7 +19,7 @@ import static net.corda.core.contracts.ContractsDSL.requireSingleCommand;
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 // ************

@@ -32,7 +32,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 @RestController
@@ -72,7 +72,6 @@ public class WesController extends CommonController {
 
         List<StateAndRef<RequestForm>> previousRequestFormState = PRControllerHelper.getRequestFormStateFromRequestId(requestId, connector.getRPCops());
 
-
         if (previousPrState == null || previousPrState.isEmpty()) {
             throw new PRException("PR Request with id: " + requestId + " doesn't exist please verify and try again!");
         }
@@ -89,7 +88,7 @@ public class WesController extends CommonController {
 
         try {
 
-            newPRState = convertToPRStateForUpdate(previousPrState.get(0).getState().getData(), prStatus, prbo);
+            newPRState = new PRState(previousPrState.get(0).getState().getData(), prStatus);
 
             FlowHandle<SignedTransaction> signedTransactionFlowHandle = connector.getRPCops().startFlowDynamic(
                     WesInitiator.class,

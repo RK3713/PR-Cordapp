@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 @CordaSerializable

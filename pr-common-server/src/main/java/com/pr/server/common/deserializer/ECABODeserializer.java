@@ -14,18 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 public class ECABODeserializer extends JsonDeserializer<ECAStateBO> {
-
-    @Autowired
-    ECAStateBO ecaStateBO;
 
     @Override
     public ECAStateBO deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         ObjectCodec oc = jp.getCodec();
         JsonNode node = oc.readTree(jp);
+        ECAStateBO ecaStateBO = new ECAStateBO();
 
         ecaStateBO.setNameOnCredential(node.get("nameOnCredential") != null ? node.get("nameOnCredential").asText() : null);
         ecaStateBO.setCredentialAuth(node.get("credentialAuth") != null ? node.get("credentialAuth").asText() : null);

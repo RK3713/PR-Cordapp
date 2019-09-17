@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 @RestController
@@ -145,8 +145,9 @@ public class UniversityController extends CommonController {
         }
         if (studentInfoBO.getUniversityBO()!=null) {
             universityBO = studentInfoBO.getUniversityBO();
-            university = new University(universityBO.getUniversityName(), universityBO.getAddress(),
-                    universityBO.getUniversityType(), universityBO.getContactNumber());
+            university = new University(previousRequest.get(0).getState().getData().getUniversityName(),
+                    previousRequest.get(0).getState().getData().getUniversityAddress(), universityBO.getUniversityType(),
+                    universityBO.getContactNumber());
         }
 
         if (studentInfoBO.getTranscriptBO()!=null) {

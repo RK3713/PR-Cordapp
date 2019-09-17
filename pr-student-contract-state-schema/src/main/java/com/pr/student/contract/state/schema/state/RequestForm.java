@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author Ajinkya Pande and Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 @CordaSerializable
@@ -188,7 +188,6 @@ public class RequestForm implements LinearState, QueryableState {
         this.consultantParty = other.consultantParty;
         this.universityParty = other.universityParty;
         this.requestStatus = other.requestStatus;
-        this.studentInfoState = other.studentInfoState;
     }
 
     public RequestForm(RequestForm other,RequestStatus requestStatus) {
@@ -210,7 +209,6 @@ public class RequestForm implements LinearState, QueryableState {
         this.consultantParty = other.consultantParty;
         this.universityParty = other.universityParty;
         this.requestStatus = requestStatus;
-        this.studentInfoState = other.studentInfoState;
     }
 
     public RequestForm(RequestForm other,StudentInfoState studentInfoState,RequestStatus requestStatus) {
@@ -227,7 +225,6 @@ public class RequestForm implements LinearState, QueryableState {
 //        this.wesAddress = other.wesAddress;
 //        this.approved = other.approved;
 //        this.comments = other.comments;
-        this.studentInfoState = other.studentInfoState;
         this.wesParty = other.wesParty;
         this.consultantParty = other.consultantParty;
         this.universityParty = other.universityParty;

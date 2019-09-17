@@ -12,7 +12,7 @@ import net.corda.core.serialization.ConstructorForDeserialization;
 import javax.persistence.*;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 public class RequestFormSchemaV1 extends MappedSchema {

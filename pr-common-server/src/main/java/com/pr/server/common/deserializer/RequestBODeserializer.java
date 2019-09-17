@@ -12,7 +12,7 @@ import com.pr.server.common.bo.impl.RequestFormBO;
 import java.io.IOException;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 public class RequestBODeserializer extends JsonDeserializer<RequestFormBO> {

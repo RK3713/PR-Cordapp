@@ -41,6 +41,10 @@ configurations {
     integrationTestRuntime.extendsFrom testRuntime
 }
 
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Xlint:-options" << "-parameters"
+}
+
 dependencies {
 
     testCompile "junit:junit:$junit_version"

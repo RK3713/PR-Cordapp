@@ -32,9 +32,6 @@ public class PRSchemaV1 extends MappedSchema {
     @Entity
     @Table(name = "PR")
     public static class PersistentPR extends PersistentState{
-
-
-
         @Column(name = "FirstName")
         private String firstName;
 
@@ -70,7 +67,6 @@ public class PRSchemaV1 extends MappedSchema {
         public PersistentPR(String firstName, String lastName, String courseName, String courseDuration, String university,
                             UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty,
                             AbstractParty wesParty) {
-            super();
             this.firstName = firstName;
             this.lastName = lastName;
             this.courseName = courseName;
@@ -86,7 +82,6 @@ public class PRSchemaV1 extends MappedSchema {
 
 
         public PersistentPR(PRState prState) {
-            super();
             this.firstName = prState.getFirstName();
             this.lastName = prState.getLastName();
             this.courseName = prState.getCourseName();
@@ -97,6 +92,10 @@ public class PRSchemaV1 extends MappedSchema {
             this.prStatus = prState.getPrStatus();
             this.consultantParty = prState.getConsultantParty();
             this.wesParty = prState.getWesParty();
+        }
+
+        public PersistentPR(PersistentStateRef stateRef) {
+            super(stateRef);
         }
 
         public PersistentPR(){

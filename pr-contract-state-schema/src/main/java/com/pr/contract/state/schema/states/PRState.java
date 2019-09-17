@@ -12,6 +12,7 @@ import net.corda.core.schemas.MappedSchema;
 import net.corda.core.schemas.PersistentState;
 import net.corda.core.schemas.QueryableState;
 import net.corda.core.serialization.ConstructorForDeserialization;
+import net.corda.core.serialization.CordaSerializable;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -20,12 +21,13 @@ import java.util.Currency;
 import java.util.List;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 // *********
 // * State *
-// *********
+
+@CordaSerializable
 @BelongsToContract(PRContract.class)
 public class PRState implements LinearState, QueryableState {
 
@@ -91,12 +93,10 @@ public class PRState implements LinearState, QueryableState {
         return wesParty;
     }
 
-
-
     @ConstructorForDeserialization
-    public PRState(String firstName, String lastName, String courseName, String courseDuration,
-                   String university, UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus,
-                   AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount) {
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university,
+                   UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty,
+                   AbstractParty wesParty, Amount<Currency> amount, ECAState ecaState) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
@@ -108,17 +108,18 @@ public class PRState implements LinearState, QueryableState {
         this.consultantParty = consultantParty;
         this.wesParty = wesParty;
         this.amount = amount;
+        this.ecaState = ecaState;
     }
 
-
-
-    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university, String email, PRStatus prStatus, AbstractParty consultantParty, AbstractParty wesParty, Amount<Currency> amount,AbstractParty receivingParty) {
+    public PRState(String firstName, String lastName, String courseName, String courseDuration, String university,
+                   UniqueIdentifier wesReferenceNumber, String email, PRStatus prStatus, AbstractParty consultantParty,
+                   AbstractParty wesParty, Amount<Currency> amount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.courseName = courseName;
         this.courseDuration = courseDuration;
         this.university = university;
-        this.wesReferenceNumber = new UniqueIdentifier();
+        this.wesReferenceNumber = wesReferenceNumber;
         this.email = email;
         this.prStatus = prStatus;
         this.consultantParty = consultantParty;
@@ -139,6 +140,21 @@ public class PRState implements LinearState, QueryableState {
         this.wesParty = other.wesParty;
         this.amount = other.amount;
         this.ecaState = ecaState;
+    }
+
+    public PRState(PRState other , PRStatus status) {
+        this.firstName = other.firstName;
+        this.lastName = other.lastName;
+        this.courseName = other.courseName;
+        this.courseDuration = other.courseDuration;
+        this.university = other.university;
+        this.wesReferenceNumber =other.wesReferenceNumber;
+        this.email = other.email;
+        this.prStatus = status;
+        this.consultantParty = other.consultantParty;
+        this.wesParty = other.wesParty;
+        this.amount = other.amount;
+        this.ecaState = other.ecaState;
     }
 
     public PRState(PRState other) {
@@ -165,7 +181,7 @@ public class PRState implements LinearState, QueryableState {
 
     @NotNull
     @Override
-    public PersistentState generateMappedObject(@NotNull MappedSchema schema) {
+    public PersistentState generateMappedObject(MappedSchema schema) {
 
         if (schema instanceof PRSchemaV1){
             return new PRSchemaV1.PersistentPR(this);
@@ -186,5 +202,23 @@ public class PRState implements LinearState, QueryableState {
     @Override
     public List<AbstractParty> getParticipants() {
         return Arrays.asList(consultantParty,wesParty);
+    }
+
+    @Override
+    public String toString() {
+        return "PRState{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", courseDuration='" + courseDuration + '\'' +
+                ", university='" + university + '\'' +
+                ", wesReferenceNumber=" + wesReferenceNumber +
+                ", email='" + email + '\'' +
+                ", prStatus=" + prStatus +
+                ", consultantParty=" + consultantParty +
+                ", wesParty=" + wesParty +
+                ", amount=" + amount +
+                ", ecaState=" + ecaState +
+                '}';
     }
 }

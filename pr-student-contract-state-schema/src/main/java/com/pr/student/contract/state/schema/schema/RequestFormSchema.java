@@ -1,7 +1,7 @@
 package com.pr.student.contract.state.schema.schema;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 public class RequestFormSchema {

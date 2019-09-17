@@ -207,20 +207,12 @@ public abstract class CommonController {
 
 
     protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
-                                       AbstractParty wesParty, Amount<Currency> amount, AbstractParty receivingParty) {
+                                       AbstractParty wesParty, Amount<Currency> amount) {
 
-        return new PRState(prData.getFirstName(), prData.getLastName(), prData.getCourseName(),
-                prData.getCourseDuration(), prData.getUniversity(), prData.getEmail(),
-                prStatus, consultantParty, wesParty, amount, receivingParty);
+        return new PRState(prData.getFirstName(),prData.getLastName(),prData.getCourseName(),
+                prData.getCourseDuration(),prData.getUniversity(),new UniqueIdentifier(),prData.getEmail(),
+                prStatus,consultantParty,wesParty,amount);
 
-    }
-
-    protected PRState convertToPRStateForUpdate(PRState previousPRState, PRStatus prStatus, PRBO prbo) {
-
-        return new PRState(previousPRState.getFirstName(), previousPRState.getLastName(), previousPRState.getCourseName(),
-                previousPRState.getCourseDuration(), previousPRState.getUniversity(), previousPRState.getWesReferenceNumber(),
-                previousPRState.getEmail(), prStatus, previousPRState.getConsultantParty(),
-                previousPRState.getWesParty(), previousPRState.getAmount());
     }
 
     protected ECAState convertToECAState(ECAStateBO ecaStateBO) {

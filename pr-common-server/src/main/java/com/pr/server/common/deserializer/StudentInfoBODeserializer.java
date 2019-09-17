@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Ajinkya Pande & Rishi Kundu
+ * @author Rishi Kundu and Ajinkya Pande
  */
 
 public class StudentInfoBODeserializer extends JsonDeserializer<StudentInfoBO> {
@@ -25,8 +25,6 @@ public class StudentInfoBODeserializer extends JsonDeserializer<StudentInfoBO> {
         UniversityBO universityBO = new UniversityBO();
         TranscriptBO transcriptBO = new TranscriptBO();
         List<SemesterBO> semesterBOList = new ArrayList<>();
-
-
 
         studentInfoBO.setCourseDuration(node.get("courseDuration") != null ? node.get("courseDuration").asText() : null);
         studentInfoBO.setDegreeStatus(node.get("degreeStatus") != null ? node.get("degreeStatus").asText() : null);
