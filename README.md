@@ -5,10 +5,10 @@
 # PR - CorDapp - Java
 
 Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Relocation
-process (PR - Process) . There are 3 parties - Consultant, Wes and University.
+process (PR - Process) and emphasizes on  There are 3 parties - Consultant, Wes and University.
 
 * **Consultant**: It initiates the PR - Process.
-* **Wes**: It approves the PR - Process.
+* **Wes**: It approves the PR request and provides ECA report .
 * **University**: It sends transcripts to Wes.
 
 
