@@ -19,7 +19,7 @@ Below steps are involved in PR - Cordapp.
 Every PR applicant (Consultant)  has to get their transcripts  assessed 
 
 
-###Business Flow without Corda:
+### Business Flow without Corda:
 
 1.    Consultant creates an account in WES and pays the fee.
 2.    WES gives a Wes reference number back to Consultant.
@@ -28,7 +28,7 @@ Every PR applicant (Consultant)  has to get their transcripts  assessed
 5.    Once the transcripts are available then consultant collects them again by visiting the University, submit the Wes form , attest a degree certificate copy from University and then use the University's postal service to send the sealed envelope carrying all the documents to WES office in Canada. (Time-period 10 days)
 6.    Once the document is received by WES it takes another month for them to verify and evaluate your transcripts and then generate an ECA report.
 
-###Pain-points:
+### Pain-points:
 
 1.    No trust between parties - There are cases reported of forged transcripts which led to use University postal service compulsorily to send transcripts to WES.
 2.    Duration - The total time taken in process is more than 2 months.
@@ -36,7 +36,7 @@ Every PR applicant (Consultant)  has to get their transcripts  assessed
 4.    Manual process
 
 
-###How Corda helps?
+### How Corda helps?
 
 1.    By making the Consultant, Wes and University part of the same network we make the process transparent.
 2.    No need for postal service and sealed or stamped documents to be sent to WES.
@@ -172,38 +172,37 @@ When started via the command line, each node will display an interactive shell:
     Welcome to the Corda interactive shell.
     Useful commands include 'help' to see what is available, and 'bye' to shut down the node.
     
-    Wed Sep 18 17:44:16 IST 2019>>>
+    Sun May 24 15:06:30 IST 2020>>>
 
 You can use this shell to interact with your node. For example, enter `run networkMapSnapshot` to see a list of 
 the other nodes on the network:
 
-    Wed Sep 18 17:44:16 IST 2019>>> run networkMapSnapshot
+    Sun May 24 15:12:51 IST 2020>>> run networkMapSnapshot
     - addresses:
       - "localhost:10005"
       legalIdentitiesAndCerts:
       - "O=Consultants, L=London, C=GB"
       platformVersion: 4
-      serial: 1568801538903
+      serial: 1590312506047
     - addresses:
       - "localhost:10008"
       legalIdentitiesAndCerts:
       - "O=University, L=New York, C=US"
       platformVersion: 4
-      serial: 1568801533270
+      serial: 1590312514588
     - addresses:
       - "localhost:10011"
       legalIdentitiesAndCerts:
       - "O=Wes, L=London, C=GB"
       platformVersion: 4
-      serial: 1568801539478
+      serial: 1590312504774
     - addresses:
       - "localhost:10002"
       legalIdentitiesAndCerts:
       - "O=Notary, L=London, C=GB"
       platformVersion: 4
-      serial: 1568801542901 
-      
-      Wed Sep 18 18:41:56 IST 2019>>>
+      serial: 1590312518846
+
 
 You can find out more about the node shell [here](https://docs.corda.net/shell.html).
 
