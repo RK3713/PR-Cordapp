@@ -4,8 +4,7 @@
 
 # PR - CorDapp - Java
 
-Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Relocation
-process (PR - Process) and emphasizes on  There are 3 parties - Consultant, Wes and University.
+Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Relocation process (PR - Process). There are 3 parties which are in scope of this usecase - Consultant, Wes and University.
 
 
 Entities (Nodes):
