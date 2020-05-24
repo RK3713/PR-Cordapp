@@ -10,7 +10,7 @@ Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Rel
 Entities (Nodes):
 
 * **Consultant**: The consultant acts on behalf of applicant to raise a PR- Request. A consultant can have multiple applicants for PR. 
-* **Wes**: It is a non-profit organisation that provides credential evaluations for international students and immigrants planning to study or work in the U.S. and Canada. Founded in 1974, it is based in New York, U.S.. It also has operations in Toronto, Canada.
+* **Wes**: It is a non-profit organisation that provides credential evaluations for international students and immigrants planning to study or work in the U.S. and Canada. Founded in 1974, it is based in New York, U.S. It also has operations in Toronto, Canada.
 * **University**: It sends the transcripts of applicant to WES.
 
 Below steps are involved in PR - Cordapp.
@@ -31,7 +31,7 @@ Every PR applicant (Consultant)  has to get their transcripts  assessed
 
 1.    No trust between parties - There are cases reported of forged transcripts which led to use University postal service compulsorily to send transcripts to WES.
 2.    Duration - The total time taken in process is more than 2 months.
-3.    Expensive - Sending documents to and forth us quite expensive.
+3.    Expensive - Sending documents to and forth is quite expensive.
 4.    Manual process
 
 
