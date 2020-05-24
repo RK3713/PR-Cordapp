@@ -115,7 +115,10 @@ Navigate to `/build/nodes` folder
   ```   
     "runserver.bat" file takes care of running all the webservers.
 
-    
+ ## PR-Cordapp Flow
+ 
+ <img width="1338" alt="PR-Cordapp Flow" src="https://user-images.githubusercontent.com/35623981/82752830-6e79d480-9dde-11ea-89f3-a2078e263f14.png">
+
  
  ## Running API's
  
