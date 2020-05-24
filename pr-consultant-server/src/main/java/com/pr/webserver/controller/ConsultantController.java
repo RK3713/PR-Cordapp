@@ -80,8 +80,6 @@ public class ConsultantController extends CommonController {
 
         AbstractParty wesParty = getPartyFromFullName("O=Wes,L=London,C=GB");
 
-        final Amount amountToBeTransferred = new Amount<>((long) prData.getAmount() * 100, Currency.getInstance("USD"));
-
         Set<Party> partyFrom = connector.getRPCops().partiesFromName(prData.getConsultantParty(), false);
         Iterator<Party> parties = partyFrom.iterator();
 
@@ -90,7 +88,7 @@ public class ConsultantController extends CommonController {
         }
 
         // Creating state
-        PRState prState = convertToPRState(prData, PRStatus.APPLICATION_SUBMITTED, consultantParty, wesParty, amountToBeTransferred);
+        PRState prState = convertToPRState(prData, PRStatus.APPLICATION_SUBMITTED, consultantParty, wesParty);
         logger.info("PR State:" + prState.toString());
 
         try {

@@ -142,10 +142,6 @@ public class ConsultantInitiator extends PRFlow {
         progressTracker.setCurrentStep(FINALISING);
         SignedTransaction fullySignedTxFinal = subFlow(new FinalityFlow(signedTransaction,flowSessions, FINALISING.childProgressTracker()));
 
-        if (prState.getPrStatus().equals(PRStatus.APPLICATION_SUBMITTED))
-            subFlow(new CashPaymentFlow(prState.getAmount(), (Party) prState.getWesParty()));
-
-
         return fullySignedTxFinal;
     }
 

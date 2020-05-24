@@ -207,11 +207,11 @@ public abstract class CommonController {
 
 
     protected PRState convertToPRState(PRBO prData, PRStatus prStatus, AbstractParty consultantParty,
-                                       AbstractParty wesParty, Amount<Currency> amount) {
+                                       AbstractParty wesParty) {
 
         return new PRState(prData.getFirstName(),prData.getLastName(),prData.getCourseName(),
                 prData.getCourseDuration(),prData.getUniversity(),new UniqueIdentifier(),prData.getEmail(),
-                prStatus,consultantParty,wesParty,amount);
+                prStatus,consultantParty,wesParty);
 
     }
 
