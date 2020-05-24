@@ -21,9 +21,6 @@ import java.util.List;
 public class StudentInfoState {
 
     private String rollNumber;
-    private String WESReferenceNumber;
-    private String firstName;
-    private String lastName;
     private String courseDuration;
     private String degreeStatus;
     private DegreeDetails degreeDetails;
@@ -32,18 +29,6 @@ public class StudentInfoState {
 
     public String getRollNumber() {
         return rollNumber;
-    }
-
-    public String getWESReferenceNumber() {
-        return WESReferenceNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getCourseDuration() {
@@ -66,15 +51,11 @@ public class StudentInfoState {
         return university;
     }
 
-
     @ConstructorForDeserialization
     public StudentInfoState(String rollNumber,
                             String courseDuration, String degreeStatus, DegreeDetails degreeDetails,
                             Transcript transcript, University university) {
         this.rollNumber = rollNumber;
-        //this.WESReferenceNumber = WESReferenceNumber;
-        /*this.firstName = firstName;
-        this.lastName = lastName;*/
         this.courseDuration = courseDuration;
         this.degreeStatus = degreeStatus;
         this.degreeDetails = degreeDetails;

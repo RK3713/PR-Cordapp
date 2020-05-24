@@ -23,19 +23,13 @@ import java.util.List;
 @CordaSerializable
 @BelongsToContract(RequestFormContract.class)
 public class RequestForm implements LinearState, QueryableState {
-    /*private Boolean wesRequested;
-    private Boolean transcriptRequested;*/
     private String wesReferenceNumber;
     private String universityName;
     private String studentName;
     private UniqueIdentifier requestId;
     private String rollNumber;
     private String degreeName;
-    //private String duration;
     private String universityAddress;
-    //private String wesAddress;
-    //private Boolean approved;
-    //private String comments;
     private StudentInfoState studentInfoState;
     private AbstractParty wesParty;
     private AbstractParty consultantParty;
@@ -43,25 +37,9 @@ public class RequestForm implements LinearState, QueryableState {
     private RequestStatus requestStatus;
     private String stateHash;
 
-    /*public Boolean getWesRequested() {
-        return wesRequested;
-    }
-
-    public Boolean getTranscriptRequested() {
-        return transcriptRequested;
-    }*/
-
     public String getWesReferenceNumber() {
         return wesReferenceNumber;
     }
-
-//    public String getWesAddress() {
-//        return wesAddress;
-//    }
-//
-//    public Boolean getApproved() {
-//        return approved;
-//    }
 
     public UniqueIdentifier getRequestId() {
         return requestId;
@@ -74,7 +52,6 @@ public class RequestForm implements LinearState, QueryableState {
     public void setStateHash(String stateHash) {
         this.stateHash = stateHash;
     }
-
 
     public AbstractParty getWesParty() {
         return wesParty;
@@ -92,7 +69,6 @@ public class RequestForm implements LinearState, QueryableState {
         return studentInfoState;
     }
 
-
     public String getUniversityName() {
         return universityName;
     }
@@ -109,17 +85,9 @@ public class RequestForm implements LinearState, QueryableState {
         return degreeName;
     }
 
-    /*public String getDuration() {
-        return duration;
-    }*/
-
     public String getUniversityAddress() {
         return universityAddress;
     }
-
-    /*public String getComments() {
-        return comments;
-    }*/
 
     public RequestStatus getRequestStatus() {
         return requestStatus;
@@ -149,20 +117,13 @@ public class RequestForm implements LinearState, QueryableState {
                        String studentName, String degreeName,
                        String universityAddress, AbstractParty wesParty, AbstractParty consultantParty,
                        AbstractParty universityParty, RequestStatus requestStatus, String rollNumber) {
-       /* this.wesRequested = isWESRequested;
-        this.transcriptRequested = isTranscriptRequested;*/
         this.wesReferenceNumber = WESReferenceNumber;
         this.universityName = universityName;
         this.studentName = studentName;
         this.requestId = requestId;
         this.rollNumber = rollNumber;
         this.degreeName = degreeName;
-        //this.duration = duration;
         this.universityAddress = universityAddress;
-        /*this.wesAddress = WESAddress;
-        this.approved = isApproved;
-        this.comments = comments;*/
-        //this.studentInfoState = studentInfoState;
         this.wesParty = wesParty;
         this.consultantParty = consultantParty;
         this.universityParty = universityParty;
@@ -170,19 +131,13 @@ public class RequestForm implements LinearState, QueryableState {
     }
 
     public RequestForm(RequestForm other) {
-        /*this.wesRequested = other.wesRequested;
-        this.transcriptRequested = other.transcriptRequested;*/
         this.wesReferenceNumber = other.wesReferenceNumber;
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
         this.requestId = other.requestId;
         this.degreeName = other.degreeName;
-        //this.duration = other.duration;
         this.universityAddress = other.universityAddress;
-        /*this.wesAddress = other.wesAddress;
-        this.approved = other.approved;
-        this.comments = other.comments;*/
         this.studentInfoState = other.studentInfoState;
         this.wesParty = other.wesParty;
         this.consultantParty = other.consultantParty;
@@ -190,20 +145,14 @@ public class RequestForm implements LinearState, QueryableState {
         this.requestStatus = other.requestStatus;
     }
 
-    public RequestForm(RequestForm other,RequestStatus requestStatus) {
-        /*this.wesRequested = other.wesRequested;
-        this.transcriptRequested = other.transcriptRequested;*/
+    public RequestForm(RequestForm other, RequestStatus requestStatus) {
         this.wesReferenceNumber = other.wesReferenceNumber;
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
         this.requestId = other.requestId;
         this.degreeName = other.degreeName;
-        //this.duration = other.duration;
         this.universityAddress = other.universityAddress;
-//        this.wesAddress = other.wesAddress;
-//        this.approved = other.approved;
-//        this.comments = other.comments;
         this.studentInfoState = other.studentInfoState;
         this.wesParty = other.wesParty;
         this.consultantParty = other.consultantParty;
@@ -211,20 +160,14 @@ public class RequestForm implements LinearState, QueryableState {
         this.requestStatus = requestStatus;
     }
 
-    public RequestForm(RequestForm other,StudentInfoState studentInfoState,RequestStatus requestStatus) {
-        /*this.wesRequested = other.wesRequested;
-        this.transcriptRequested = other.transcriptRequested;*/
+    public RequestForm(RequestForm other, StudentInfoState studentInfoState, RequestStatus requestStatus) {
         this.wesReferenceNumber = other.wesReferenceNumber;
         this.universityName = other.universityName;
         this.studentName = other.studentName;
         this.rollNumber = other.rollNumber;
         this.requestId = other.requestId;
         this.degreeName = other.degreeName;
-       // this.duration = other.duration;
         this.universityAddress = other.universityAddress;
-//        this.wesAddress = other.wesAddress;
-//        this.approved = other.approved;
-//        this.comments = other.comments;
         this.wesParty = other.wesParty;
         this.consultantParty = other.consultantParty;
         this.universityParty = other.universityParty;
