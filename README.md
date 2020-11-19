@@ -6,10 +6,6 @@
 
 Welcome to the PR - CorDapp. This CorDapp is one of the module for Permanent Relocation process (PR - Process). There are 3 parties which are in scope of this usecase - Consultant, Wes and University.
 
-Link to our Cordapp:
-
- [PR-Cordapp](https://github.com/RK3713/PR-Cordapp)
-
 
 Entities (Nodes):
 
